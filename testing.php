@@ -1,30 +1,24 @@
-
-
+<!DOCTYPE html>
 <html>
-  <head>
-  <title>My Now Amazing Webpage</title>
-  <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
-  </head>
-  <body>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
 
-  <div class="your-class">
-    <div>your content</div>
-    <div>your content</div>
-    <div>your content</div>
-  </div>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/infowindow.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+</head>
 
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script type="text/javascript" src="slick/slick.min.js"></script>
+<body>
 
-  <script type="text/javascript">
-    $(document).ready(function(){
-        $('.your-class').slick({
-        setting-name;: setting-value
-    })
-    });
-  </script>
 
-  </body>
+
+</body>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIQZFQ4pr9frj4L6jmm1GoDs6_iw2BwZ4&callback=initMap">
+</script>
 </html>

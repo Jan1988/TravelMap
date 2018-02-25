@@ -6,20 +6,15 @@
     <title>Info windows</title>
 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/infowindow.css">
     <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </head>
 
 <body>
-
-<!-- Images used to open the lightbox -->
-<!---->
-<?php
-    $dir_path = "images/Sankt Petersburg/";
-    include ("php/load_images.php");
-    echo_div_row_column($dir_path);
-?>
-
+<div id="map"></div>
 
 <!-- The Modal/Lightbox -->
 <div id="myModal" class="modal">
@@ -27,6 +22,7 @@
     <div class="modal-content">
 
         <?php
+            include ("php/load_images.php");
             $dir_path = "images/Sankt Petersburg/";
 //            $dir_path = "images/Mannheim/";
 
@@ -55,11 +51,11 @@
 
 
 
-
-
+<script src="./js/initMap.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIQZFQ4pr9frj4L6jmm1GoDs6_iw2BwZ4&callback=initMap">
+</script>
 <script src="./js/lightbox.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <!--<script type="text/javascript" src="slick/slick.min.js"></script>-->
 <script type="text/javascript" src="slick/slick.js"></script>
 
@@ -68,10 +64,10 @@
     $(document).on('ready', function() {
         console.log('ready');
         $(".regular").slick({
-            dots: false,
+            dots: true,
             infinite: false,
-            slidesToShow: 7,
-            slidesToScroll: 5
+            slidesToShow: 6,
+            slidesToScroll: 4
         });
 
     });

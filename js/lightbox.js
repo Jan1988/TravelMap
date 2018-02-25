@@ -4,12 +4,14 @@
 // Open the Modal
 
 function openModal() {
-    document.getElementById('myModal').style.display = "block";
+    // document.getElementById('myModal').style.display = "block";
+    document.getElementById('myModal').style.visibility = "visible";
 }
 
 // Close the Modal
 function closeModal() {
-    document.getElementById('myModal').style.display = "none";
+    // document.getElementById('myModal').style.display = "none";
+    document.getElementById('myModal').style.visibility = "hidden";
 }
 
 var slideIndex = 1;
