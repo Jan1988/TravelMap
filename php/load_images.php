@@ -31,6 +31,15 @@ function echo_div_my_slides($dir_path){
     }
 }
 
+function pick_ramdom_image_from_folder($dir_path){
+    if(is_dir($dir_path)) {
+        $files = array_slice(scandir($dir_path), 2);
+        $randomImage = $files[array_rand($files)];
+
+        echo $randomImage;
+    }
+}
+
 //function echo_div_row_column($dir_path)
 //{
 //    if (is_dir($dir_path)) {

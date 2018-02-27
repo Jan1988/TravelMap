@@ -3,26 +3,14 @@
  */
 function initMap() {
 
-    var jsonMyWayPoints = {
-        'Mannheim': [49.487459, 8.466039, 'Sankt Petersburg', 'P'],
-        'Sankt Petersburg': [59.9293951, 30.36227199999996, 'Moskau', 'T'],
-        'Moskau': [55.755826, 37.617300, 'Jekaterinburg', 'T'],
-        'Jekaterinburg': [56.838926, 60.605703, 'Irkutsk_1', 'T'],
-        'Irkutsk_1': [52.286974, 104.305018, 'Khuzhir', 'T'],
-        'Khuzhir': [53.190595, 107.330684, 'Irkutsk_2', 'T'],
-        'Irkutsk_2': [52.286974, 104.305018, 'Ulaanbataar_1', 'T'],
-        'Ulaanbataar_1': [47.886399, 106.905744, 'Dadal', 'C'],
-        'Dadal': [49.020271, 111.621465, 'Ulaanbataar_2', 'C'],
-        'Ulaanbataar_2': [47.886399, 106.905744, 'Dalandsadgad', 'C']
-    };
 
     var locations = [
         ['Mannheim', 49.487459, 8.466039, 1, 'Sankt Petersburg', 'P'],
         ['Sankt Petersburg', 59.9293951, 30.36227199999996, 1, 'Moskau', 'T'],
         ['Moskau', 55.755826, 37.617300, 6, 'Jekaterinburg', 'T'],
-        ['Jekaterinburg', 56.838926, 60.605703, 10, 'Irkutsk_1', 'T'],
-        ['Irkutsk', 52.286974, 104.305018, 14, 'Khuzhir', 'C'],
-        ['Khuzhir', 53.190595, 107.330684, 16, 'Irkutsk', 'C'],
+        ['Jekaterinburg', 56.838926, 60.605703, 10, 'Irkutsk', 'T'],
+        ['Irkutsk', 52.286974, 104.305018, 14, 'Olkhon Island', 'C'],
+        ['Olkhon Island', 53.190595, 107.330684, 16, 'Irkutsk', 'C'],
         ['Irkutsk', 52.286974, 104.305018, 20, 'Ulaanbataar', 'T'],
         ['Ulaanbataar', 47.886399, 106.905744, 23, 'Dadal', 'C'],
         ['Dadal', 49.020271, 111.621465, 29, 'Ulaanbataar', 'C'],
@@ -176,13 +164,11 @@ function initMap() {
     }
 
 
-
-
     function attachSecretMessage(marker, wayPoint, dayOfTravel) {
-        console.log(wayPoint);
-
+        // console.log(wayPoint);
         // InfoWindow content
-        var infoWindowContent = '<img class="iw-prev-img" src="./images/test_1.JPG">' +
+        var infoWindowContent =
+            '<img class="iw-prev-img" src="./images/test1.JPG">' +
             '<div class="iw-description-container">' +
             '<div class="iw-day-place-wrapper">' +
             '<div class="iw-day">Day '+ dayOfTravel + '</div>' +
@@ -204,13 +190,28 @@ function initMap() {
 
 
         marker.addListener('click', function () {
-
-            infowindow.open(marker.get('map'), marker);
+            // Make an AJAX request to get the data
+            // The return will be put into the InfoWindow
+            $.ajax({
+                type: "GET",
+                url: './php/load_rnd_img.php',
+                data: {
+                    folderName:wayPoint,
+                    dayOfTravel: dayOfTravel
+                },
+                success: function(data) {
+                    infowindow.setContent(data);
+                    infowindow.open(map, marker);
+                }
+            // infowindow.open(marker.get('map'), marker);
+            });
         });
 
         google.maps.event.addListener(infowindow, 'domready', function() {
 
-            // Reference to the DIV that wraps the bottom of infowindow
+
+
+                // Reference to the DIV that wraps the bottom of infowindow
             var iwOuter = $('.gm-style-iw');
 
             /* Since this div is in a position prior to .gm-div style-iw.
@@ -255,16 +256,18 @@ function initMap() {
         });
     }
 
+}
+
 // Use the DOM setInterval() function to change the offset of the symbol
 // at fixed intervals.
-    function animatePlane(line) {
-        var count = 0;
-        window.setInterval(function() {
-            count = (count + 1) % 200;
+function animatePlane(line) {
+    var count = 0;
+    window.setInterval(function() {
+        count = (count + 1) % 200;
 
-            var icons = line.get('icons');
-            icons[0].offset = (count / 2) + '%';
-            line.set('icons', icons);
-        }, 20);
-    }
+        var icons = line.get('icons');
+        icons[0].offset = (count / 2) + '%';
+        line.set('icons', icons);
+    }, 20);
 }
+
