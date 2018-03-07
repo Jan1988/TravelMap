@@ -27,7 +27,7 @@ if(is_dir($dir_path)) {
     echo "</div>";
     echo "<div class='iw-view-gallery-wrapper'>";
     echo "<div class='iw-view-gallery-txt'>View Gallery </div>";
-    echo "<img class='iw-view-gallery-btn' src='./images/icons/Play_Button_2.png' onclick='openModal(1)'>";
+    echo "<img class='iw-view-gallery-btn' src='./images/icons/Play_Button_2.png' onclick='openModal(\"$folderName\")'>";
     echo "</div>";
     echo "</div>";
 }

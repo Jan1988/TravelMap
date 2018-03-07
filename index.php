@@ -16,38 +16,7 @@
 <body>
 <div id="map"></div>
 
-<!-- The Modal/Lightbox -->
-<div id="myModal" class="modal">
-    <span class="close cursor" onclick="closeModal()">&times;</span>
-    <div class="modal-content">
 
-        <?php
-            include ("php/load_images.php");
-            $dir_path = "images/Sankt Petersburg/";
-//            $dir_path = "images/Mannheim/";
-
-            echo_div_my_slides($dir_path);
-            ?>
-
-        <!-- Next/previous controls -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-        <!-- Caption text -->
-        <div class="caption-container"><p id="caption"></p></div>
-
-        <section class="regular slider">
-            <?php
-                $dir_path = "images/Sankt Petersburg/";
-            //            $dir_path = "images/Mannheim/";
-
-                echo_div_column($dir_path);
-            ?>
-        </section>
-
-
-    </div>
-</div>
 
 
 

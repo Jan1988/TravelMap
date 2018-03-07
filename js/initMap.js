@@ -165,28 +165,27 @@ function initMap() {
 
 
     function attachSecretMessage(marker, wayPoint, dayOfTravel) {
-        // console.log(wayPoint);
-        // InfoWindow content
-        var infoWindowContent =
-            '<img class="iw-prev-img" src="./images/test1.JPG">' +
-            '<div class="iw-description-container">' +
-            '<div class="iw-day-place-wrapper">' +
-            '<div class="iw-day">Day '+ dayOfTravel + '</div>' +
-            '<div class="iw-place">' + wayPoint + '</div>' +
-            '</div>' +
-            '<div class="iw-view-gallery-wrapper">' +
-            '<div class="iw-view-gallery-txt">View Gallery </div>' +
-            '<img class="iw-view-gallery-btn" src="./images/icons/Play_Button_2.png" onclick="openModal(1)">' +
-            '</div>' +
-            '</div>';
+        // // console.log(wayPoint);
+        // // InfoWindow content
+        // var infoWindowContent =
+        //     '<img class="iw-prev-img" src="./images/test1.JPG">' +
+        //     '<div class="iw-description-container">' +
+        //     '<div class="iw-day-place-wrapper">' +
+        //     '<div class="iw-day">Day '+ dayOfTravel + '</div>' +
+        //     '<div class="iw-place">' + wayPoint + '</div>' +
+        //     '</div>' +
+        //     '<div class="iw-view-gallery-wrapper">' +
+        //     '<div class="iw-view-gallery-txt">View Gallery </div>' +
+        //     '<img class="iw-view-gallery-btn" src="./images/icons/Play_Button_2.png" onclick="openModal(1)">' +
+        //     '</div>' +
+        //     '</div>';
 
 
         var infowindow = new google.maps.InfoWindow({
             title: 'Gallery ' + wayPoint,
-            content: infoWindowContent
+            // content: infoWindowContent
 
         });
-
 
 
         marker.addListener('click', function () {
