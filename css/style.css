@@ -181,3 +181,38 @@ img.hover-shadow {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+#loadingDiv {
+    /*display:    none;*/
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 0, 0, 0, .8 )
+    url('http://i.stack.imgur.com/FhHRx.gif')
+    50% 50%
+    no-repeat;
+}
+
+/*!* When the body has the loading class, we turn*/
+   /*the scrollbar off with overflow:hidden *!*/
+/*body.loading .loadingModal {*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*!* Anytime the body has the loading class, our*/
+   /*modal element will be visible *!*/
+/*body.loading .loadingModal {*/
+    /*display: block;*/
+/*}*/
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

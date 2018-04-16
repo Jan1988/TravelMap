@@ -3,6 +3,15 @@
  */
 // Open the Modal
 
+var $loading = $('#loadingDiv').hide();
+// $(document)
+//     .ajaxStart(function () {
+//          $loading.show();
+//     })
+//     .ajaxStop(function () {
+//
+//     });
+
 
 var slideIndex = 1;
 var wayPointOld = "";
@@ -10,7 +19,7 @@ var wayPointOld = "";
 function openModal(wayPoint) {
     console.log(wayPoint);
 
-    if (wayPoint != wayPointOld){
+    if (wayPoint != wayPointOld) {
         slideIndex = 1;
         appendModal(wayPoint);
         wayPointOld = wayPoint;
@@ -25,7 +34,7 @@ function appendModal(wayPoint) {
 
     var modalExists = document.getElementById('myModal');
 
-    if (modalExists){
+    if (modalExists) {
         console.log("Modal Exists");
         modalExists.remove();
     }
@@ -37,54 +46,81 @@ function appendModal(wayPoint) {
         '<span class="close cursor" onclick="closeModal()">&times;</span>' +
         '<div class="modal-content">';
 
-    $("#map").after(theLightbox1);
-
-    $.ajax({
-        type: "GET",
-        url: './php/echo_div_my_slides.php',
-        data: {
-            folderName:wayPoint
-        },
-        success: function(data) {
-            console.log("success echo_div_my_slides");
-            // console.log(data);
-            $(".modal-content").prepend(data);
-            showSlides(3);
-        }
-
-    });
-
-
-    var theLightbox2= '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>' +
+    var theLightbox2 = '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>' +
         '<a class="next" onclick="plusSlides(1)">&#10095;</a>' +
         '<div class="caption-container"><p id="caption"></p></div>' +
         '<section class="regular slider">' +
         '</section>' + '</div>' + '</div>';
 
-    $(".modal-content").append(theLightbox2);
+    $("#map").after(theLightbox1);
 
-    // $.ajax({
-    //     type: "GET",
-    //     url: './php/echo_div_column.php',
-    //     // data: {
-    //     //     folderName:wayPoint,
-    //     //     dayOfTravel: dayOfTravel
-    //     // },
-    //     success: function(data) {
-    //         console.log("success echo_div_column");
-    //         console.log(data);
-    //         // $("section").prepend(data);
-    //     }
-    //
-    // });
 
+    $.when(
+        $loading.show(),
+        $.ajax({
+            type: "GET",
+            url: './php/lib-backend.php',
+            data: {
+                folderName: wayPoint
+            },
+            success: function (data) {
+
+                imgPathArray = JSON.parse(data);
+                console.log("concole log: " + imgPathArray);
+            }
+        })
+    ).done(function () {
+
+        var img = new Image();
+        for (var i = 0; i < (imgPathArray.length); i++) {
+
+            img.onload = function () {
+                console.log(img.src + " is loaded");
+                $loading.hide();
+            };
+
+            $("<img>")
+                .on('load', function() { console.log("image loaded correctly"); })
+                .on('error', function() { console.log("error loading image"); });
+
+
+            img.src = imgPathArray[i];
+            $(".modal-content").append("<div class=\"mySlides\"><div class=\"numbertext\">" + (i + 1) + " / " + imgPathArray.length + "</div><img src='" + img.src + "' style=\"width: 100%\" /></div>");
+
+        }
+        showSlides(1);
+        $(".modal-content").append(theLightbox2);
+    });
+
+
+}
+
+function callback() {
+
+
+}
+
+function PreloadImage(imgSrc, callback){
+    var objImagePreloader = new Image();
+
+    objImagePreloader.src = imgSrc;
+    if(objImagePreloader.complete){
+        callback();
+        objImagePreloader.onload=function(){};
+    }
+    else{
+        objImagePreloader.onload = function() {
+            callback();
+            //    clear onLoad, IE behaves irratically with animated gifs otherwise
+            objImagePreloader.onload=function(){};
+        }
+    }
 }
 
 function closeModal() {
     // document.getElementById('myModal').style.display = "none";
     document.getElementById('myModal').style.visibility = "hidden";
 }
-
 
 
 function plusSlides(n) {
@@ -98,7 +134,7 @@ function currentSlide(n) {
 
 function showSlides(n) {
     console.log("showSlides");
-    console.log(n);
+
 
     var i;
     var slides = document.getElementsByClassName('mySlides');
@@ -107,8 +143,12 @@ function showSlides(n) {
     // var dots = document.getElementsByClassName("demo");
     var captionText = document.getElementById("caption");
 
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
+    if (n > slides.length) {
+        slideIndex = 1
+    }
+    if (n < 1) {
+        slideIndex = slides.length
+    }
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
@@ -116,7 +156,8 @@ function showSlides(n) {
     //     dots[i].className = dots[i].className.replace(" active", "");
     // }
     // document.getElementsByClassName("mySlides")[0].style.display = "block";
-    slides[slideIndex-1].style.display = "block";
+    slides[slideIndex - 1].style.display = "block";
     // dots[slideIndex-1].className += " active";
     // captionText.innerHTML = dots[slideIndex-1].alt;
 }
+

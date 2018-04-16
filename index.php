@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/infowindow.css">
     <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </head>
@@ -16,7 +17,9 @@
 <body>
 <div id="map"></div>
 
+<div id="loadingDiv">
 
+</div>
 
 
 
