@@ -2,159 +2,294 @@
  * Created by Külse on 29.01.2018.
  */
 function initMap() {
-
-
-    var locations = [
-        ['Mannheim', 49.487459, 8.466039, 1, 'Sankt Petersburg', 'P'],
-        ['Sankt Petersburg', 59.9293951, 30.36227199999996, 1, 'Moskau', 'T'],
-        // ['Moskau', 55.755826, 37.617300, 6, 'Jekaterinburg', 'C'],
-        ['Jekaterinburg', 56.838926, 60.605703, 10, 'Irkutsk', 'C'],
-        ['Irkutsk', 52.286974, 104.305018, 14, 'Olkhon Island', 'C'],
-        ['Olkhon Island', 53.190595, 107.330684, 16, 'Irkutsk', 'C'],
-        ['Irkutsk', 52.286974, 104.305018, 20, 'Ulaanbataar', 'C'],
-        ['Ulaanbataar', 47.886399, 106.905744, 23, 'Dadal', 'C'],
-        ['Dadal', 49.020271, 111.621465, 29, 'Ulaanbataar', 'C'],
-        ['Ulaanbataar', 47.886399, 106.905744, 31, 'Dalandsadgad', 'C'],
-        ['Beijing', 39.904200, 116.407396, 999, 'Pingjao', 'C'],
-        ['Pingyao',37.205779, 112.182798, 999, 'Xi\'an', 'C'],
-        ['Xi\'an',34.341574, 108.939770, 999, 'Shanghai', 'C'],
-        ['Shanghai',31.192209, 121.334297, 999, 'Suzhou', 'C'],
-        ['Suzhou',31.329151, 120.610641, 999, 'HongKong', 'C'],
-        ['HongKong', 22.396428, 114.109497, 'X', 'Katmandu', 'P'],
-        ['Katmandu', 27.717245, 85.323960, 'X', 'Lukla', 'C'],
-        ['Rishikesh', 30.086928, 78.267612, 999, 'Agra', 'C'],
-        ['Agra', 27.176670, 78.008075, 999, 'Tivim', 'C'],
-        ['Tivim', 15.618060, 73.843827, 999, 'Querim', 'C'],
-        ['Querim Beach', 15.713758, 73.697766, 999, 'Mumbai', 'C'],
-        ['Mumbai', 19.075984, 72.877656, 'X', 'Frankfurt', 'P'],
-        ['Frankfurt', 50.110922, 8.682127, 'X', '', 'C']
-    ];
-
-
+    var service = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: new google.maps.LatLng(locations[0][1], locations[0][2]),
-        // styles: mapStyle
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.HYBRID
     });
 
+    var stations = [
+        {id:'TRAIN', lat: 49.487459, lng: 8.466039, name: 'Mannheim'},
+//            {id:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+        {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
 
+        //#3
+        {id:'TRAIN', lat: 55.755826, lng: 37.617300, name: 'Moskau'},
+        {id:'TRAIN', lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
+        {id:'TRAIN', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+        {id:'CAR', lat: 53.190595, lng: 107.330684, name: 'Olchon Island'},
+        {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+        {id:'TRAIN', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
 
+        //#10
+        {id:'CAR', lat: 48.694456, lng: 112.000363, name: 'Dadal'},
+        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+        {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+        {id:'CAR', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
+        {id:'CAR', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
+        {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+        {id:'CAR', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
+        {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
+        {id:'CAR', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
+//            {lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
+        {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
+        {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
+        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+        {id:'TRAIN', lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'},
 
-    // Instantiate a directions service.
-    var directionsService = new google.maps.DirectionsService();
-    var renderArray = [];
+        //#25
+        {id:'TRAIN', lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
+        {id:'TRAIN', lat: 39.904200, lng: 116.407396, name: 'Beijing'},
+        {id:'TRAIN', lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
+        {id:'TRAIN', lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
+        {id:'TRAIN', lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
+        {id:'TRAIN', lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
+        {id:'TRAIN', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+        {id:'CAR', lat: 30.081874, lng: 118.186276, name: 'Tangkou'},
+        {id:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+        {id:'TRAIN', lat: 25.234479, lng: 110.179953, name: 'Guilin'},
+        {id:'TRAIN', lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
+        {id:'TRAIN', lat: 22.543096, lng: 114.057865, name: 'Shenzhen'},
 
+        //#38
+        {id:'TRAIN', lat: 22.396428, lng: 114.109497, name: 'HongKong'},
+        {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
+        //#40
+        {id:'CAR', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
+        //#41
+        {id:'WALKING', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
+        {id:'WALKING', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
+        {id:'WALKING', lat: 27.929896, lng: 86.836261, name: 'Kongma La Pass'},
+        {id:'WALKING', lat: 27.980797, lng: 86.828921, name: 'Gorak Shep'},
+        {id:'WALKING', lat: 28.002586, lng: 86.852760, name: 'Everest Base Camp'},
+        {id:'WALKING', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'},
+        {id:'WALKING', lat: 27.953468, lng: 86.694468, name: 'Gokyo'},
+        {id:'WALKING', lat: 27.945886, lng: 86.658826, name: 'Renjo La Pass'},
+        {id:'WALKING', lat: 27.831164, lng: 86.650307, name: 'Thame'},
+        {id:'WALKING', lat: 27.687541, lng: 86.731711, name: 'Lukla'},
+
+        //#53
+        {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
+
+        {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
+//            {id:'CAR', lat: 30.120858, lng: 78.317387, name: 'Geeta Ashram'},
+
+        {id:'TRAIN', lat: 27.176670, lng: 78.008075, name: 'Agra'},
+        {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'},
+
+        {id:'CAR', lat: 15.713758, lng: 73.697766, name: 'Querim Beach'},
+        {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
+        {id:'CAR', lat: 19.075984, lng: 72.877656, name: 'Mumbai'},
+
+        {id:'PLANE', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+
+//            {id:31, lat: 22, lng: 114, name: ''},
+
+    ];
+
+    //Icon and symbols created
     var markerIcon = {
         path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-        fillColor: '#e25a00',
+        fillColor: '#3dff80',
         fillOpacity: 0.95,
-        scale: 1.5,
+        scale: 1.25,
         strokeColor: '#000000',
         strokeWeight: 1.5,
         anchor: new google.maps.Point(12, 24)
     };
 
-    var marker;
+    var airplaneSymbol = {
+        path: 'M362.985,430.724l-10.248,51.234l62.332,57.969l-3.293,26.145 l-71.345-23.599l-2.001,13.069l-2.057-13.529l-71.278,22.928l-5.762-23.984l64.097-59.271l-8.913-51.359l0.858-114.43 l-21.945-11.338l-189.358,88.76l-1.18-32.262l213.344-180.08l0.875-107.436l7.973-32.005l7.642-12.054l7.377-3.958l9.238,3.65 l6.367,14.925l7.369,30.363v106.375l211.592,182.082l-1.496,32.247l-188.479-90.61l-21.616,10.087l-0.094,115.684',
+        scale: 0.03,
+        strokeOpacity: 1,
+        strokeColor: 'black',
+        strokeWeight: 1,
+        // anchor: new google.maps.Point(650,300)
+        anchor: new google.maps.Point(350,300)
+    };
 
-    for (var j = 0; j < locations.length-1; j++) {
+    // Zoom and center map automatically by stations (each station will be in visible map area)
+    var lngs = stations.map(function(station) { return station.lng; });
+    var lats = stations.map(function(station) { return station.lat; });
+    map.fitBounds({
+        west: Math.min.apply(null, lngs),
+        east: Math.max.apply(null, lngs),
+        north: Math.min.apply(null, lats),
+        south: Math.max.apply(null, lats),
+    });
 
-        var originName = locations[j][0];
-        var originLatLong = new google.maps.LatLng(locations[j][1], locations[j][2]);
-        var dayOfTravel = locations[j][3];
-        var destinationName = locations[j][4];
-        var destinationLatLong = new google.maps.LatLng(locations[j+1][1], locations[j+1][2]);
-        var travelMode = locations[j][5];
+    var stationName = "";
+    var dayOfTravel = 999;
 
-
-        marker = new google.maps.Marker({
-            position: originLatLong,
+    // Show stations on the map as markers
+    for (var i = 0; i < stations.length; i++) {
+        stationName = stations[i].name;
+        if (!stationName)
+            continue;
+        var marker = new google.maps.Marker({
+            position: stations[i],
             map: map,
             icon: markerIcon,
-            title: originName
+            title: stationName
         });
-        marker.metadata = {id: j};
-        attachSecretMessage(marker, originName, dayOfTravel);
+        marker.metadata = {id: i};
+        attachSecretMessage(marker, stationName, dayOfTravel);
+    }
 
-        var request = {};
-        if (travelMode == 'C'){
-            request = {
-                origin:originName,
-                destination: destinationName,
-                travelMode: google.maps.TravelMode.DRIVING
-            };
-            directionsService.route(request, directionResults1);
-            function directionResults1(result, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    renderArray[j] = new google.maps.DirectionsRenderer();
-                    renderArray[j].setMap(map);
-                    renderArray[j].setOptions({
-                        suppressMarkers: true,
-                        suppressInfoWindows: true,
-                        preserveViewport: true,
-                        polylineOptions: {
-                            strokeColor: "#82ff2d",
-                            strokeWeight: 4
-                        }
-                    });
-                    // Use this new renderer with the result
-                    renderArray[j].setDirections(result);
-                }
+    //Push all stations that form one Route as a Array of Stations into another Array
+    var parts = [];
+    parts.push(stations.slice(0, 2));
+    parts.push(stations.slice(1, 8));
+    parts.push(stations.slice(7, 20));
+    parts.push(stations.slice(19, 21));
+    parts.push(stations.slice(21, 33));
+    parts.push(stations.slice(33, 35));
+    parts.push(stations.slice(34, 36));
+    parts.push(stations.slice(36, 46));
+    parts.push(stations.slice(45, 47));
+    parts.push(stations.slice(46, 48));
+    parts.push(stations.slice(47, 50));
+    parts.push(stations.slice(49, 53));
+    parts.push(stations.slice(52, 54));
+
+    console.log(parts);
+
+
+    // Callback function to process service results
+    var service_callback_TRAIN = function(response, status) {
+        if (status != 'OK') {
+            console.log('TRAIN Directions request failed due to ' + status);
+            return;
+        }
+        var renderer = new google.maps.DirectionsRenderer;
+        renderer.setMap(map);
+        renderer.setOptions({
+            suppressMarkers: true,
+            preserveViewport: true,
+            polylineOptions: {
+                strokeColor: "#000000",
+                strokeWeight: 3,
+                strokeOpacity: 0.85
             }
-        }else if(travelMode == 'T'){
-            request = {
-                origin: originName,
-                destination: destinationName,
-                travelMode: google.maps.TravelMode.TRANSIT,
-                transitOptions: {modes:['TRAIN']}
-            };
-            directionsService.route(request, directionResults2);
-            function directionResults2(result, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    renderArray[j] = new google.maps.DirectionsRenderer();
-                    renderArray[j].setMap(map);
-                    renderArray[j].setOptions({
-                        // suppressMarkers: true,
-                        suppressInfoWindows: true,
-                        preserveViewport: true,
-                        polylineOptions: {
-                            strokeColor: "black",
-                            strokeWeight: 4
-                        }
-                    });
-                    // Use this new renderer with the result
-                    renderArray[j].setDirections(result);
-                }
+        });
+        renderer.setDirections(response);
+    };
+
+    // Callback function to process service results
+    var service_callback_CAR = function(response, status) {
+        if (status != 'OK') {
+            console.log('CAR Directions request failed due to ' + status);
+            return;
+        }
+        var renderer = new google.maps.DirectionsRenderer;
+        renderer.setMap(map);
+        renderer.setOptions({
+            suppressMarkers: true,
+            preserveViewport: true,
+            polylineOptions: {
+                strokeColor: "#82ff2d",
+                strokeWeight: 3,
+                strokeOpacity: 0.85
             }
-        }else if(travelMode == 'P'){
-            var airplaneSymbol = {
-                path: 'M362.985,430.724l-10.248,51.234l62.332,57.969l-3.293,26.145 l-71.345-23.599l-2.001,13.069l-2.057-13.529l-71.278,22.928l-5.762-23.984l64.097-59.271l-8.913-51.359l0.858-114.43 l-21.945-11.338l-189.358,88.76l-1.18-32.262l213.344-180.08l0.875-107.436l7.973-32.005l7.642-12.054l7.377-3.958l9.238,3.65 l6.367,14.925l7.369,30.363v106.375l211.592,182.082l-1.496,32.247l-188.479-90.61l-21.616,10.087l-0.094,115.684',
-                scale: 0.04,
-                strokeOpacity: 1,
-                strokeColor: 'black',
-                strokeWeight: 1,
-                // anchor: new google.maps.Point(650,300)
-                anchor: new google.maps.Point(350,300)
+        });
+        renderer.setDirections(response);
+    };
+
+    // Callback function to process service results
+    var service_callback_WALKING = function(response, status) {
+        if (status != 'OK') {
+            console.log('WALKING Directions request failed due to ' + status);
+            return;
+        }
+        var renderer = new google.maps.DirectionsRenderer;
+        renderer.setMap(map);
+        renderer.setOptions({
+            suppressMarkers: true,
+            preserveViewport: true,
+            polylineOptions: {
+                strokeColor: "#3dff80",
+                strokeWeight: 3,
+                strokeOpacity: 0.85
+            }
+        });
+        renderer.setDirections(response);
+    };
+
+
+    for (var i = 0; i < parts.length; i++) {
+        // Waypoints does not include first station (origin) and last station (destination)
+        var origin = parts[i][0];
+        var destination = parts[i][parts[i].length - 1];
+        var destinationTravelMode = destination.id;
+
+        var waypoints = [];
+        for (var j = 1; j < parts[i].length - 1; j++)
+            waypoints.push({location: parts[i][j], stopover: false});
+
+
+
+        if (destinationTravelMode == 'CAR'){
+            // Service options
+            var service_options_CAR = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                travelMode: 'DRIVING'
             };
+            service.route(service_options_CAR, service_callback_CAR);
+
+        }else if(destinationTravelMode == 'TRAIN') {
+            var service_options_CAR = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                travelMode: 'DRIVING'
+            };
+            service.route(service_options_CAR, service_callback_TRAIN);
+
+        }else if(destinationTravelMode == 'WALKING'){
+            var service_options_WALKING = {
+                origin: origin,
+                destination: destination,
+                waypoints: waypoints,
+                travelMode: 'WALKING'
+            };
+            service.route(service_options_WALKING, service_callback_WALKING);
+
+        }else if(destinationTravelMode == 'PLANE'){
             var flightPath = new google.maps.Polyline({
-                path:  [originLatLong, destinationLatLong],
+                path:  [origin, destination],
                 icons: [{
                     icon: airplaneSymbol,
                     offset: '100%',
                     zIndex:99999999
                     // repeat: '20px'
                 }],
-
                 strokeColor: "#8c79ff",
                 strokeOpacity: 0.3,
                 strokeWeight: 4,
                 geodesic: true
             });
             flightPath.setMap(map);
+
+        }else {
+            console.log('NOTHING');
         }
         animatePlane(flightPath);
     }
 
+
+    // Use the DOM setInterval() function to change the offset of the symbol
+    // at fixed intervals.
+    function animatePlane(line) {
+        var count = 0;
+        window.setInterval(function() {
+            count = (count + 1) % 200;
+
+            var icons = line.get('icons');
+            icons[0].offset = (count / 2) + '%';
+            line.set('icons', icons);
+        }, 20);
+    }
 
     function attachSecretMessage(marker, wayPoint, dayOfTravel) {
 
@@ -269,16 +404,5 @@ function initMap() {
 
 }
 
-// Use the DOM setInterval() function to change the offset of the symbol
-// at fixed intervals.
-function animatePlane(line) {
-    var count = 0;
-    window.setInterval(function() {
-        count = (count + 1) % 200;
 
-        var icons = line.get('icons');
-        icons[0].offset = (count / 2) + '%';
-        line.set('icons', icons);
-    }, 20);
-}
 
