@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #map {
+            height: 900px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<script>
+    function initMap() {
+        var service = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'));
+
+        // list of points
+//        ['Sankt Petersburg', 59.9293951, 30.36227199999996, 1, 'Moskau', 'T'],
+//            // ['Moskau', 55.755826, 37.617300, 6, 'Jekaterinburg', 'C'],
+//            ['Jekaterinburg', 56.838926, 60.605703, 10, 'Irkutsk', 'C'],
+//            ['Irkutsk', 52.286974, 104.305018, 14, 'Olkhon Island', 'C'],
+//            ['Olkhon Island', 53.190595, 107.330684, 16, 'Irkutsk', 'C'],
+//            ['Irkutsk', 52.286974, 104.305018, 20, 'Ulaanbataar', 'C'],
+//            ['Ulaanbataar', 47.886399, 106.905744, 23, 'Dadal', 'C'],
+//            ['Dadal', 49.020271, 111.621465, 29, 'Ulaanbataar', 'C'],
+//            ['Ulaanbataar', 47.886399, 106.905744, 31, 'Dalandsadgad', 'C'],
+//            ['Beijing', 39.904200, 116.407396, 999, 'Pingjao', 'C'],
+//            ['Pingyao',37.205779, 112.182798, 999, 'Xi\'an', 'C'],
+//            ['Xi\'an',34.341574, 108.939770, 999, 'Shanghai', 'C'],
+//            ['Shanghai',31.192209, 121.334297, 999, 'Suzhou', 'C'],
+//        ['Suzhou',31.329151, 120.610641, 999, 'HongKong', 'C'],
+//            ['HongKong', 22.396428, 114.109497, 'X', 'Katmandu', 'P'],
+//            ['Katmandu', 27.717245, 85.323960, 'X', 'Lukla', 'C'],
+//            ['Rishikesh', 30.086928, 78.267612, 999, 'Agra', 'C'],
+//            ['Agra', 27.176670, 78.008075, 999, 'Tivim', 'C'],
+//            ['Tivim', 15.618060, 73.843827, 999, 'Querim', 'C'],
+//            ['Querim Beach', 15.713758, 73.697766, 999, 'Mumbai', 'C'],
+//            ['Mumbai', 19.075984, 72.877656, 'X', 'Frankfurt', 'P'],
+//            ['Frankfurt', 50.110922, 8.682127, 'X', '', 'C']
+//        {lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+        var stations = [
+            {lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
+            {lat: 55.755826, lng: 37.617300, name: 'Moskau'},
+            {lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
+            {lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+            {lat: 53.190595, lng: 107.330684, name: 'Olkhon Island'},
+            {lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+            {lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+            {lat: 49.020271, lng: 111.621465, name: 'Dadal'},
+            {lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+            {lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+            {lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
+            {lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
+            {lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+            {lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
+            {lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
+            {lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
+//            {lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
+            {lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
+            {lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
+            {lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+            {lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'},
+            {lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
+            {lat: 39.904200, lng: 116.407396, name: 'Beijing'},
+            {lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
+            {lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
+            {lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
+            {lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
+            {lat: 30.081874, lng: 118.186276, name: 'Tangkou'},
+            {lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+            {lat: 25.234479, lng: 110.179953, name: 'Guilin'},
+            {lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
+
+//            {lat: 22.396428, lng: 114.109497, name: 'HongKong'},
+
+
+
+
+
+        ];
+
+
+
+        // Zoom and center map automatically by stations (each station will be in visible map area)
+        var lngs = stations.map(function(station) { return station.lng; });
+        var lats = stations.map(function(station) { return station.lat; });
+        console.log(lngs);
+        map.fitBounds({
+            west: Math.min.apply(null, lngs),
+            east: Math.max.apply(null, lngs),
+            north: Math.min.apply(null, lats),
+            south: Math.max.apply(null, lats),
+        });
+
+        // Show stations on the map as markers
+        for (var i = 0; i < stations.length; i++) {
+            if (!stations[i].name)
+                continue;
+            new google.maps.Marker({
+                position: stations[i],
+                map: map,
+                title: stations[i].name
+            });
+        }
+
+        // Divide route to several parts because max stations limit is 25 (23 waypoints + 1 origin + 1 destination)
+        for (var i = 0, parts = [], max = 8 - 1; i < stations.length; i = i + max)
+            parts.push(stations.slice(i, i + max + 1));
+
+        // Callback function to process service results
+        var service_callback = function(response, status) {
+            if (status != 'OK') {
+                console.log('Directions request failed due to ' + status);
+                console.log(response);
+                return;
+            }
+            var renderer = new google.maps.DirectionsRenderer;
+            renderer.setMap(map);
+            renderer.setOptions({ suppressMarkers: true, preserveViewport: true });
+            renderer.setDirections(response);
+        };
+
+        // Send requests to service to get route (for stations count <= 25 only one request will be sent)
+        for (var i = 0; i < parts.length; i++) {
+            // Waypoints does not include first station (origin) and last station (destination)
+            var waypoints = [];
+            for (var j = 1; j < parts[i].length - 1; j++)
+                waypoints.push({location: parts[i][j], stopover: false});
+            // Service options
+
+            console.log(waypoints);
+            var service_options = {
+                origin: parts[i][0],
+                destination: parts[i][parts[i].length - 1],
+                waypoints: waypoints,
+                travelMode: 'DRIVING'
+            };
+            // Send request
+            service.route(service_options, service_callback);
+        }
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIQZFQ4pr9frj4L6jmm1GoDs6_iw2BwZ4&callback=initMap">
+</script>
+</body>
+</html>
+
+
