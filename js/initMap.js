@@ -284,7 +284,7 @@ function initMap() {
             suppressMarkers: true,
             preserveViewport: true,
             polylineOptions: {
-                strokeColor: "#82ff2d",
+                strokeColor: "#49412c",
                 strokeWeight: 3,
                 strokeOpacity: 0.85
             }
@@ -306,7 +306,7 @@ function initMap() {
             suppressMarkers: true,
             preserveViewport: true,
             polylineOptions: {
-                strokeColor: "#604020",
+                strokeColor: "#97743a",
                 strokeWeight: 3,
                 strokeOpacity: 1
             }
@@ -372,7 +372,7 @@ function initMap() {
                 // Give the line an opacity of 0.
                 // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
                 strokeOpacity: 1,
-                strokeColor: "#604020",
+                strokeColor: "#97743a",
                 strokeWeight: 3,
                 geodesic: true
             });
@@ -387,14 +387,24 @@ function initMap() {
                     zIndex: 99999999
                     // repeat: '20px'
                 }],
-                strokeColor: "#8c79ff",
+                strokeColor: "#b0a18e",
                 strokeOpacity: 0.3,
                 strokeWeight: 4,
                 geodesic: true
             });
             flightPath.setMap(map);
 
-        animatePlane(flightPath);
+            // var innerCoords2 = [
+            //     {lat: -33.364, lng: 156.207},
+            //     {lat: -34.364, lng: 156.207},
+            //     {lat: -34.364, lng: 157.207},
+            //     {lat: -33.364, lng: 157.207}
+            // ];
+            //
+            // map.data.add({geometry: new google.maps.Data.Polygon([innerCoords2])});
+
+
+            animatePlane(flightPath);
 
         }else {
             console.log('NOTHING');

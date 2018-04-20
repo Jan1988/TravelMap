@@ -88,8 +88,8 @@ function appendModal(wayPoint) {
             $(".modal-content").append("<div class=\"mySlides\"><div class=\"numbertext\">" + (i + 1) + " / " + imgPathArray.length + "</div><img src='" + img.src + "'/></div>");
 
         }
-        showSlides(1);
         $(".modal-content").append(theLightbox2);
+        showSlides(1);
     });
 
 
@@ -129,7 +129,7 @@ function currentSlide(n) {
 }
 
 function showSlides(n) {
-    console.log("showSlides");
+
 
 
     var i;
@@ -138,6 +138,8 @@ function showSlides(n) {
     console.log("slides.length: " + slides.length);
     // var dots = document.getElementsByClassName("demo");
     var captionText = document.getElementById("caption");
+
+    // console.log(captionText);
 
     if (n > slides.length) {
         slideIndex = 1
@@ -154,6 +156,6 @@ function showSlides(n) {
     // document.getElementsByClassName("mySlides")[0].style.display = "block";
     slides[slideIndex - 1].style.display = "block";
     // dots[slideIndex-1].className += " active";
-    // captionText.innerHTML = dots[slideIndex-1].alt;
+    captionText.innerHTML = "Bald steht hier text";
 }
 
