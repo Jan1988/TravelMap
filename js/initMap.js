@@ -9,162 +9,19 @@ function initMap() {
 
     });
 
-    var stationsNoPath = [
-        [
-            {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
-            {id:'TRAIN', lat: 55.755826, lng: 37.617300, name: 'Moskau'},
-            {id:'TRAIN', lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
-            {id:'TRAIN', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'}
-            ],
-        [
-            {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
-            {id:'TRAIN', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'}
-            ],
-        [
-            {id:'WALKING_NO_PATH', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
-            {id:'WALKING_NO_PATH', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'}
-            ],
-        [
-            {id:'WALKING_NO_PATH', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
-            {id:'WALKING_NO_PATH', lat: 27.929896, lng: 86.836261, name: 'Kongma La Pass'},
-            {id:'WALKING_NO_PATH', lat: 27.948104, lng: 86.810285, name: 'Lobuche'}
-            ],
-        [
-            {id:'WALKING_NO_PATH', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'},
-            {id:'WALKING_NO_PATH', lat: 27.953468, lng: 86.694468, name: 'Gokyo'},
-            {id:'WALKING_NO_PATH', lat: 27.945886, lng: 86.658826, name: 'Renjo La Pass'},
-            {id:'WALKING_NO_PATH', lat: 27.831164, lng: 86.650307, name: 'Thame'}
-            ],
-        [
-            {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
-            {id:'TRAIN', lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'}
-            ],
-        [
-            {id:'TRAIN', lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
-            {id:'TRAIN', lat: 39.904200, lng: 116.407396, name: 'Beijing'},
-            {id:'TRAIN', lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
-            {id:'TRAIN', lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
-            {id:'TRAIN', lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
-            {id:'TRAIN', lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
-            {id:'TRAIN', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
-            {id:'CAR', lat: 30.081874, lng: 118.186276, name: 'Tangkou'},
-            {id:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
-            {id:'TRAIN', lat: 25.234479, lng: 110.179953, name: 'Guilin'},
-            {id:'TRAIN', lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
-            {id:'TRAIN', lat: 22.543096, lng: 114.057865, name: 'Shenzhen'}
-            ],
-        [
-            {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
-            {id:'TRAIN', lat: 27.176670, lng: 78.008075, name: 'Agra'},
-            {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'}
-        ]
-
-
-    ];
-
-    var pathForStationsNoPath = [];
-    for (var k = 0; k < stationsNoPath.length; k++) {
-        console.log(stationsNoPath[k]);
-        // pathForStationsNoPath.push(stationsNoPathParts[k])
-
-        var stationsNoPathId = stationsNoPath[k][stationsNoPath[k].length-1].id;
-        console.log(stationsNoPathId);
-
-        if('TRAIN'==stationsNoPathId){
-            var trainPath = new google.maps.Polyline({
-
-                path:  stationsNoPath[k],
-                // Give the line an opacity of 0.
-                // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
-                strokeOpacity: 1,
-                strokeColor: "#000000",
-                strokeWeight: 3,
-                geodesic: true
-            });
-            trainPath.setMap(map);
-
-        }else if ('WALKING_NO_PATH'==stationsNoPathId){
-            var walkingPath = new google.maps.Polyline({
-
-                path:  stationsNoPath[k],
-                // Give the line an opacity of 0.
-                // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
-                strokeOpacity: 1,
-                strokeColor: "#604020",
-                strokeWeight: 3,
-                geodesic: true
-            });
-            walkingPath.setMap(map);
-        }
-
-    }
-
-
-    var stations = [
-        {id:'TRAIN', lat: 49.487459, lng: 8.466039, name: 'Mannheim'},
-//            {id:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
-        {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
-        //#3
-        {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
-        {id:'CAR', lat: 53.190595, lng: 107.330684, name: 'Olchon Island'},
-        {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
-
-        //#10
-        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
-        {id:'CAR', lat: 48.694456, lng: 112.000363, name: 'Dadal'},
-        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
-        {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
-        {id:'CAR', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
-        {id:'CAR', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
-        {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
-        {id:'CAR', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
-        {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
-        {id:'CAR', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
-//            {lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
-        {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
-        {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
-        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
-
-        {id:'TRAIN', lat: 22.396428, lng: 114.109497, name: 'HongKong'},
-
-        {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
-        //#40
-        {id:'CAR', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
-        //#41
-        {id:'WALKING', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
-        {id:'WALKING', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
-
-        {id:'WALKING', lat: 27.948104, lng: 86.810285, name: 'Lobuche'},
-        {id:'WALKING', lat: 27.980797, lng: 86.828921, name: 'Gorak Shep'},
-        {id:'WALKING', lat: 28.002586, lng: 86.852760, name: 'Everest Base Camp'},
-
-        {id:'WALKING_NO_PATH', lat: 27.831164, lng: 86.650307, name: 'Thame'},
-        {id:'WALKING', lat: 27.687541, lng: 86.731711, name: 'Lukla'},
-
-        {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
-
-        {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
-//            {id:'CAR', lat: 30.120858, lng: 78.317387, name: 'Geeta Ashram'},
-
-        {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'},
-        {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
-        {id:'CAR', lat: 15.713758, lng: 73.697766, name: 'Querim Beach'},
-        {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
-        {id:'CAR', lat: 19.075984, lng: 72.877656, name: 'Mumbai'},
-
-        {id:'PLANE', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
-
-//            {id:31, lat: 22, lng: 114, name: ''},
-
-    ];
-
+    var lineSymbolDotted = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillOpacity: 1,
+        fillColor : "#ffffff",
+        strokeWeight: 0,
+        scale: 2
+    };
 
     // Define a symbol using SVG path notation, with an opacity of 1.
     var lineSymbol = {
-        path: google.maps.SymbolPath.CIRCLE,
+        path: 'M 50.20432,31.460178 H 99.807799 V 16.511377 1.5625486 H 111.97468 124.1416 V 479.9247 958.28687 H 111.97468 99.807799 v -16.4437 -16.44371 H 50.20432 0.60084187 V 891.0172 856.63491 H 50.20432 99.807799 v -34.38228 -34.3823 H 50.20432 0.60084187 V 753.48806 719.1058 H 50.20432 99.807799 V 684.72351 650.34123 H 50.20432 0.60084187 V 615.95894 581.57668 H 50.20432 99.807799 V 547.19439 512.81211 H 50.20432 0.60084187 v -34.3823 -34.38225 H 50.20432 99.807799 V 410.41271 376.77787 H 50.20432 0.60084187 V 341.64815 306.51844 H 50.20432 99.807799 v -34.3823 -34.38227 H 50.20432 0.60084187 V 203.37159 168.9893 H 50.20432 99.807799 V 135.35447 101.71963 H 50.20432 0.60084187 V 66.589904 31.460178 Z M 160.64226,1.5625486 h 12.16689 V 16.511377 31.460178 H 295.41397 418.01878 V 16.511377 1.5625486 h 13.10282 13.10279 V 479.9247 958.28687 H 431.1216 418.01878 v -16.45451 -16.45455 l -122.13687,0.38455 -122.13682,0.38456 -0.53132,16.06996 -0.53126,16.06999 H 160.57894 148.47537 V 479.9247 1.5625486 Z M 295.41397,168.9893 H 418.01878 V 135.35447 101.71963 H 295.41397 172.80915 v 33.63484 33.63483 z m 0,137.52914 h 122.60481 v -34.3823 -34.38227 H 296.66186 c -66.74632,0 -121.9185,0.44847 -122.6048,0.99658 -0.68636,0.54811 -1.24791,16.02015 -1.24791,34.38227 v 33.38572 z m 0,137.52912 h 122.60481 v -34.00859 -34.00854 l -122.13687,0.3628 c -67.17524,0.19956 -122.34742,0.36772 -122.60481,0.37371 -0.25737,0.006 -0.46795,15.14662 -0.46795,33.64577 v 33.63485 z m 0,137.52912 H 418.01878 V 547.19439 512.81211 H 296.66186 c -66.74632,0 -121.9185,0.44847 -122.6048,0.9966 -0.68636,0.54809 -1.24791,16.02014 -1.24791,34.38226 v 33.38571 z m 0,137.52912 H 418.01878 V 684.72351 650.34123 H 296.66186 c -66.74632,0 -121.9185,0.44848 -122.6048,0.99661 -0.68636,0.54809 -1.24791,16.02011 -1.24791,34.38225 v 33.38571 z m 0,137.52911 h 122.60481 v -34.38228 -34.3823 H 295.41397 172.80915 v 34.3823 34.38228 z M 478.8532,1.5625486 h 12.16688 V 16.511377 31.460178 h 44.95843 44.95839 l -0.50245,34.756011 -0.50245,34.755981 -44.45595,0.40079 -44.45597,0.40078 v 33.60777 33.60779 h 44.92393 44.9239 v 34.35522 34.35523 l -44.45595,0.40078 -44.45594,0.40076 -0.50308,34.00858 -0.50312,34.00857 h 44.99355 44.99353 l -0.50245,34.756 -0.50245,34.75599 -43.98799,0.29304 -43.98799,0.29305 -0.50308,33.71551 -0.50312,33.71553 h 44.95904 44.95905 v 34.35523 34.3552 l -44.45595,0.40076 -44.45594,0.4008 -0.50308,34.00855 -0.50312,34.00858 h 44.95904 44.95905 v 34.35523 34.35519 l -44.45595,0.40078 -44.45594,0.4008 -0.50308,34.00854 -0.50312,34.00858 h 44.95904 44.95905 v 34.35519 34.35523 l -44.45595,0.4008 -44.45594,0.40078 -0.50308,34.00854 -0.50312,34.00857 h 44.95904 44.95905 v 34.35522 34.35521 l -44.45595,0.4008 -44.45594,0.40078 -0.53129,16.06996 -0.53127,16.06999 H 478.78989 466.68632 V 479.9247 1.5625486 Z',
         fillOpacity: 1,
-        scale: 2
-
+        scale: 0.008
     };
 
     //Icon and symbols created
@@ -187,6 +44,205 @@ function initMap() {
         // anchor: new google.maps.Point(650,300)
         anchor: new google.maps.Point(350,300)
     };
+
+    var stationsNoPath = [
+        [
+            {id:'', lat: 49.487459, lng: 8.466039, name: 'Mannheim'},
+            {id:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+            ],
+        [
+            {id:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+            {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'}
+            ],
+        [
+
+            {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
+            {id:'TRAIN', lat: 55.755826, lng: 37.617300, name: 'Moskau'},
+            {id:'TRAIN', lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
+            {id:'TRAIN', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'}
+            ],
+        [
+            {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+            {id:'CAR', lat: 53.190595, lng: 107.330684, name: 'Olchon Island'},
+            {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'}
+            ],
+        [
+            {id:'CAR', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+            {id:'TRAIN', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'}
+            ],
+        [
+            {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+            {id:'CAR', lat: 48.694456, lng: 112.000363, name: 'Dadal'},
+            {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+            {id:'CAR', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
+            {id:'CAR', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
+            {id:'CAR', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
+            {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
+            {id:'CAR', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
+            // {id:'CAR', lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
+            {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
+            {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
+            {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+            ],
+        [
+            {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+            {id:'TRAIN', lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'}
+            ],
+        [
+            {id:'TRAIN', lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
+            {id:'TRAIN', lat: 39.904200, lng: 116.407396, name: 'Beijing'},
+            {id:'TRAIN', lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
+            {id:'TRAIN', lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
+            {id:'TRAIN', lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
+            {id:'TRAIN', lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
+            {id:'TRAIN', lat: 29.714699, lng: 118.337521, name: 'Huangshan'}
+            ],
+        [
+            {id:'TRAIN', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+            {id:'CAR', lat: 30.081874, lng: 118.186276, name: 'Tangkou'},
+            {id:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'}
+            ],
+        [
+            {id:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+            {id:'TRAIN', lat: 25.234479, lng: 110.179953, name: 'Guilin'},
+            {id:'TRAIN', lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
+            {id:'TRAIN', lat: 22.543096, lng: 114.057865, name: 'Shenzhen'},
+            {id:'TRAIN', lat: 22.279684, lng: 114.182431, name: 'Hong Kong'},
+            {id:'TRAIN', lat: 22.308052, lng: 113.918384, name: 'Hong Kong Airport'}
+            ],
+        [
+            {id:'TRAIN', lat: 22.308052, lng: 113.918384, name: 'Hong Kong Airport'},
+            {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'}
+            ],
+        [
+            {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
+            {id:'CAR', lat: 27.516357, lng: 86.584424, name: 'Phaplu'}
+            ],
+        [
+            {id:'WALKING_NO_PATH', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
+            {id:'WALKING_NO_PATH', lat: 27.740040, lng: 86.712555, name: 'Phakding'}
+
+            ],
+        [
+            {id:'WALKING_NO_PATH', lat: 27.740040, lng: 86.712555, name: 'Phakding'},
+            {id:'WALKING_NO_PATH', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
+            {id:'WALKING', lat: 27.904549, lng: 86.871274, name: 'Chukhung'}
+            ],
+        [
+            {id:'WALKING_NO_PATH', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
+            {id:'WALKING_NO_PATH', lat: 27.929896, lng: 86.836261, name: 'Kongma La Pass'},
+            {id:'WALKING_NO_PATH', lat: 27.948104, lng: 86.810285, name: 'Lobuche'}
+            ],
+        [
+            {id:'WALKING_NO_PATH', lat: 27.948104, lng: 86.810285, name: 'Lobuche'},
+            {id:'WALKING', lat: 27.980797, lng: 86.828921, name: 'Gorak Shep'},
+            {id:'WALKING', lat: 27.995803, lng: 86.828427, name: 'Kala Patthar'},
+            {id:'WALKING', lat: 28.002586, lng: 86.852760, name: 'Everest Base Camp'},
+            {id:'WALKING', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'}
+            ],
+        [
+            {id:'WALKING_NO_PATH', lat: 27.939794, lng: 86.773529, name: 'Zonglha'},
+            {id:'WALKING_NO_PATH', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'},
+            {id:'WALKING_NO_PATH', lat: 27.953468, lng: 86.694468, name: 'Gokyo'},
+            {id:'WALKING_NO_PATH', lat: 27.945886, lng: 86.658826, name: 'Renjo La Pass'},
+            {id:'WALKING_NO_PATH', lat: 27.831164, lng: 86.650307, name: 'Thame'},
+            {id:'WALKING_NO_PATH', lat: 27.821332, lng: 86.590522, name: 'Thame Valley'}
+
+            ],
+        [
+            {id:'WALKING_NO_PATH', lat: 27.831164, lng: 86.650307, name: 'Thame'},
+            {id:'WALKING', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
+            {id:'WALKING', lat: 27.687541, lng: 86.731711, name: 'Lukla'}
+        ],
+        [
+            {id:'WALKING', lat: 27.687541, lng: 86.731711, name: 'Lukla'},
+            {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'}
+            ],
+        [
+            {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
+            {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
+            {id:'CAR', lat: 30.120858, lng: 78.317387, name: 'Geeta Ashram'}
+            ],
+        [
+            {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
+            {id:'TRAIN', lat: 27.176670, lng: 78.008075, name: 'Agra'},
+            {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'}
+            ],
+        [
+            {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'},
+            {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
+            {id:'CAR', lat: 15.713758, lng: 73.697766, name: 'Querim Beach'},
+            {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
+            {id:'CAR', lat: 19.097322, lng: 72.874460, name: 'Mumbai Airport'}
+            ],
+        [
+            {id:'CAR', lat: 19.097322, lng: 72.874460, name: 'Mumbai Airport'},
+            {id:'PLANE', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'}
+            ],
+        [
+            {id:'PLANE', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+            {id:'CAR', lat: 49.667665, lng: 9.518123, name: 'Külsheim'}
+            ]
+    ];
+
+    var stations = [
+        {id:'', lat: 49.487459, lng: 8.466039, name: 'Mannheim'},
+        // {id:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+        {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
+        {id:'TRAIN', lat: 55.755826, lng: 37.617300, name: 'Moskau'},
+        {id:'TRAIN', lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
+        {id:'TRAIN', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+        {id:'CAR', lat: 53.190595, lng: 107.330684, name: 'Olchon Island'},
+        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+        {id:'CAR', lat: 48.694456, lng: 112.000363, name: 'Dadal'},
+        {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+        {id:'CAR', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
+        {id:'CAR', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
+        {id:'CAR', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
+        {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
+        {id:'CAR', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
+        {id:'CAR', lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
+        {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
+        {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
+        {id:'TRAIN', lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'},
+        {id:'TRAIN', lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
+        {id:'TRAIN', lat: 39.904200, lng: 116.407396, name: 'Beijing'},
+        {id:'TRAIN', lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
+        {id:'TRAIN', lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
+        {id:'TRAIN', lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
+        {id:'TRAIN', lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
+        {id:'CAR', lat: 30.081874, lng: 118.186276, name: 'Tangkou'},
+        // {id:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+        {id:'TRAIN', lat: 25.234479, lng: 110.179953, name: 'Guilin'},
+        {id:'TRAIN', lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
+        // {id:'TRAIN', lat: 22.543096, lng: 114.057865, name: 'Shenzhen'},
+        {id:'TRAIN', lat: 22.279684, lng: 114.182431, name: 'Hong Kong'},
+        {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
+        {id:'CAR', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
+        {id:'WALKING', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
+        {id:'WALKING', lat: 27.854989, lng: 86.825890, name: 'Ama Dablam Base Camp'},
+        {id:'WALKING', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
+        {id:'WALKING_NO_PATH', lat: 27.929896, lng: 86.836261, name: 'Kongma La Pass'},
+        // {id:'WALKING', lat: 27.948104, lng: 86.810285, name: 'Lobuche'},
+        // {id:'WALKING', lat: 27.980797, lng: 86.828921, name: 'Gorak Shep'},
+        {id:'WALKING', lat: 27.995803, lng: 86.828427, name: 'Kala Patthar'},
+        {id:'WALKING', lat: 28.002586, lng: 86.852760, name: 'Everest Base Camp'},
+        {id:'WALKING_NO_PATH', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'},
+        {id:'WALKING_NO_PATH', lat: 27.953468, lng: 86.694468, name: 'Gokyo'},
+        {id:'WALKING_NO_PATH', lat: 27.945886, lng: 86.658826, name: 'Renjo La Pass'},
+        // {id:'WALKING_NO_PATH', lat: 27.831164, lng: 86.650307, name: 'Thame'},
+        {id:'WALKING_NO_PATH', lat: 27.821332, lng: 86.590522, name: 'Thame Valley'},
+        {id:'WALKING', lat: 27.687541, lng: 86.731711, name: 'Lukla'},
+        // {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
+        {id:'CAR', lat: 30.120858, lng: 78.317387, name: 'Geeta Ashram'},
+        // {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'},
+        {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
+        {id:'CAR', lat: 15.713758, lng: 73.697766, name: 'Querim Beach'},
+        // {id:'CAR', lat: 19.075984, lng: 72.877656, name: 'Mumbai'}
+        {id:'CAR', lat: 19.097322, lng: 72.874460, name: 'Mumbai Airport'},
+        {id:'CAR', lat: 49.667665, lng: 9.518123, name: 'Külsheim'}
+
+    ];
 
     // Zoom and center map automatically by stations (each station will be in visible map area)
     var lngs = stations.map(function(station) { return station.lng; });
@@ -215,54 +271,6 @@ function initMap() {
         marker.metadata = {id: i};
         attachSecretMessage(marker, stationName, dayOfTravel);
     }
-
-    //Push all stations that form one Route as a Array of Stations into another Array
-    var parts = [];
-    parts.push(stations.slice(0, 2));
-    parts.push(stations.slice(2, 4));
-    //Ulaanbataar -> Ulaanbataar
-    parts.push(stations.slice(5, 18));
-    //HK -> Katmandu
-    parts.push(stations.slice(18, 20));
-    //Katmandu -> Phaplu
-    parts.push(stations.slice(19, 21));
-    //Namche -> Chukung
-    parts.push(stations.slice(21, 23));
-    //Lohuche -> Base Camp
-    parts.push(stations.slice(23, 26));
-    //Thame -> Lukla
-    parts.push(stations.slice(26, 28));
-    //Lukla -> Katmandu
-    parts.push(stations.slice(27, 29));
-    //Katmandu -> Rishikesh
-    parts.push(stations.slice(28, 30));
-    //Tivim -> Mumbai
-    parts.push(stations.slice(30, 35));
-    //Mumbai -> Frankfurt
-    parts.push(stations.slice(34, 36));
-
-    console.log(parts);
-
-
-    // Callback function to process service results
-    var service_callback_TRAIN = function(response, status) {
-        if (status != 'OK') {
-            console.log('TRAIN Directions request failed due to ' + status);
-            return;
-        }
-        var renderer = new google.maps.DirectionsRenderer;
-        renderer.setMap(map);
-        renderer.setOptions({
-            suppressMarkers: true,
-            preserveViewport: true,
-            polylineOptions: {
-                strokeColor: "#000000",
-                strokeWeight: 3,
-                strokeOpacity: 0.85
-            }
-        });
-        renderer.setDirections(response);
-    };
 
     // Callback function to process service results
     var service_callback_CAR = function(response, status) {
@@ -297,34 +305,26 @@ function initMap() {
         renderer.setOptions({
             suppressMarkers: true,
             preserveViewport: true,
-            // Create the polyline, passing the symbol in the 'icons' property.
             polylineOptions: {
                 strokeColor: "#604020",
                 strokeWeight: 3,
-                // Give the line an opacity of 0.
-                // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
                 strokeOpacity: 1
-                // icons: [{
-                //     icon: lineSymbol,
-                //     offset: '0',
-                //     repeat: '20px'
-                // }]
             }
         });
         renderer.setDirections(response);
     };
 
-
-    for (var i = 0; i < parts.length; i++) {
+    console.log(stationsNoPath);
+    for (var i = 0; i < stationsNoPath.length; i++) {
         // Waypoints does not include first station (origin) and last station (destination)
-        var origin = parts[i][0];
-        var destination = parts[i][parts[i].length - 1];
+        var origin = stationsNoPath[i][0];
+        var destination = stationsNoPath[i][stationsNoPath[i].length - 1];
         var destinationTravelMode = destination.id;
 
         var waypoints = [];
-        var waypointsLatLng = [];
-        for (var j = 1; j < parts[i].length - 1; j++)
-            waypoints.push({location: parts[i][j]});
+
+        for (var j = 1; j < stationsNoPath[i].length - 1; j++)
+            waypoints.push({location: stationsNoPath[i][j]});
 
 
 
@@ -338,16 +338,8 @@ function initMap() {
             };
             service.route(service_options_CAR, service_callback_CAR);
 
-        }else if(destinationTravelMode == 'TRAIN') {
-            var service_options_CAR = {
-                origin: origin,
-                destination: destination,
-                waypoints: waypoints,
-                travelMode: 'DRIVING'
-            };
-            service.route(service_options_CAR, service_callback_TRAIN);
 
-        }else if(destinationTravelMode == 'WALKING'){
+        }else if(destinationTravelMode == 'WALKING') {
             var service_options_WALKING = {
                 origin: origin,
                 destination: destination,
@@ -356,16 +348,43 @@ function initMap() {
             };
             service.route(service_options_WALKING, service_callback_WALKING);
 
-        }else if(destinationTravelMode == 'WALKING_NO_PATH'){
+        }else if('TRAIN'==destinationTravelMode){
+            var trainPath = new google.maps.Polyline({
 
+                path:  stationsNoPath[i],
+                // Give the line an opacity of 0.
+                // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
+                icons: [{
+                    icon: lineSymbolDotted,
+                    repeat: '12px',
+                }],
+                strokeOpacity: 1,
+                strokeColor: "#000000",
+                strokeWeight: 5,
+                geodesic: true
+            });
+            trainPath.setMap(map);
 
-        }else if(destinationTravelMode == 'PLANE'){
+        }else if ('WALKING_NO_PATH'==destinationTravelMode){
+            var walkingPath = new google.maps.Polyline({
+
+                path:  stationsNoPath[i],
+                // Give the line an opacity of 0.
+                // Repeat the symbol at intervals of 20 pixels to create the dashed effect.
+                strokeOpacity: 1,
+                strokeColor: "#604020",
+                strokeWeight: 3,
+                geodesic: true
+            });
+            walkingPath.setMap(map);
+
+        }else if(destinationTravelMode == 'PLANE') {
             var flightPath = new google.maps.Polyline({
-                path:  [origin, destination],
+                path:stationsNoPath[i],
                 icons: [{
                     icon: airplaneSymbol,
                     offset: '100%',
-                    zIndex:99999999
+                    zIndex: 99999999
                     // repeat: '20px'
                 }],
                 strokeColor: "#8c79ff",
@@ -375,10 +394,12 @@ function initMap() {
             });
             flightPath.setMap(map);
 
+        animatePlane(flightPath);
+
         }else {
             console.log('NOTHING');
         }
-        animatePlane(flightPath);
+
     }
 
 

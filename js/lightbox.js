@@ -85,7 +85,7 @@ function appendModal(wayPoint) {
 
 
             img.src = imgPathArray[i];
-            $(".modal-content").append("<div class=\"mySlides\"><div class=\"numbertext\">" + (i + 1) + " / " + imgPathArray.length + "</div><img src='" + img.src + "' style=\"width: 100%\" /></div>");
+            $(".modal-content").append("<div class=\"mySlides\"><div class=\"numbertext\">" + (i + 1) + " / " + imgPathArray.length + "</div><img src='" + img.src + "'/></div>");
 
         }
         showSlides(1);
@@ -95,10 +95,6 @@ function appendModal(wayPoint) {
 
 }
 
-function callback() {
-
-
-}
 
 function PreloadImage(imgSrc, callback){
     var objImagePreloader = new Image();
