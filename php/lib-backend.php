@@ -20,7 +20,7 @@ if(is_dir($dir_path)) {
     $substr_dir_path = substr($dir_path, 3);
     for ($i = 0; $i < $files_count; $i++) {
 
-        $img_num = $i + 1;
+//        $img_num = $i + 1;
 
 
         array_push($img_path_arr, $substr_dir_path.$files[$i]);

@@ -511,10 +511,10 @@ function initMap() {
 //            iwOuter.parent().parent().css({left: '115px'});
 
             // Moves the shadow of the arrow 76px to the left margin.
-            iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+            // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
 
             // Moves the arrow 76px to the left margin.
-            iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+            // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
 
             // Changes the desired tail shadow color.
             iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});

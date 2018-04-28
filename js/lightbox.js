@@ -43,14 +43,11 @@ function appendModal(wayPoint) {
     var echoDivMySlides = "nix bekommen";
 
     var theLightbox1 = '<div id="myModal" class="modal">' +
-        '<span class="close cursor" onclick="closeModal()">&times;</span>' +
-        '<div class="modal-content">';
+        '<span class="close cursor" onclick="closeModal()">&times;</span>';
+        // '<div class="modal-content">';
 
     var theLightbox2 = '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>' +
-        '<a class="next" onclick="plusSlides(1)">&#10095;</a>' +
-        '<div class="caption-container"><p id="caption"></p></div>' +
-        '<section class="regular slider">' +
-        '</section>' + '</div>' + '</div>';
+        '<a class="next" onclick="plusSlides(1)">&#10095;</a>';
 
     $("#map").after(theLightbox1);
 
@@ -85,10 +82,23 @@ function appendModal(wayPoint) {
 
 
             img.src = imgPathArray[i];
-            $(".modal-content").append("<div class=\"mySlides\"><div class=\"numbertext\">" + (i + 1) + " / " + imgPathArray.length + "</div><img src='" + img.src + "'/></div>");
+            $("#myModal").append(
+                '<div class=\"mySlides\">' +
+                    '<div class=\"numbertext\">' + (i + 1) + " / " + imgPathArray.length +
+                    '</div>' +
+                    '<img src="' + img.src + '"/>' +
+                    // '<div class="caption-container">' +
+                    //     '<p>Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor; hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor... Hodor hodor hodor; hodor hodor hodor hodor! Hodor hodor... Hodor hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor. </p>' +
+                    // '</div>' +
+                    // '<section class="regular slider">' +
+                    // '</section>' +
+                // '</div>' +
+                // '</div>'+
+                '</div>'
+            );
 
         }
-        $(".modal-content").append(theLightbox2);
+        $("#myModal").append(theLightbox2);
         showSlides(1);
     });
 
