@@ -9,6 +9,7 @@ html, body {
     height: 98%;
     margin: 10px;
     padding: 0;
+    background-color: #ba9077;
 }
 
 * {
@@ -40,7 +41,8 @@ html, body {
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-    border: 1px solid;
+    border: 2px solid #5a5c51;
+    border-radius: 10px;
     height: 98%;
 }
 
@@ -159,11 +161,12 @@ html, body {
     top: 50%;
     left: 50%;
 
-    max-width: 85%;
+    max-width: 90%;
     max-height: 90%;
 
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
+    border: solid 1px;
 }
 
 

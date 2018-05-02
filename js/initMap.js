@@ -77,11 +77,11 @@ function initMap() {
             {id:'CAR', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
             {id:'CAR', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
             {id:'CAR', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
-            {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
+            {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Charkhorin'},
             {id:'CAR', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
             // {id:'CAR', lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
-            {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
-            {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
+            {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Hot Springs Tsenkher'},
+            {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Lake Terkhiin Tsagaan'},
             {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
             ],
         [
@@ -112,6 +112,7 @@ function initMap() {
             ],
         [
             {id:'TRAIN', lat: 22.308052, lng: 113.918384, name: 'Hong Kong Airport'},
+            // {id:'PLANE', lat: 28.613939, lng: 77.209021, name: 'New Delhi'},
             {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'}
             ],
         [
@@ -120,6 +121,7 @@ function initMap() {
             ],
         [
             {id:'WALKING_NO_PATH', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
+            {id:'WALKING_NO_PATH', lat: 27.644733, lng: 86.726779, name: 'Puiya'},
             {id:'WALKING_NO_PATH', lat: 27.740040, lng: 86.712555, name: 'Phakding'}
 
             ],
@@ -186,61 +188,63 @@ function initMap() {
     ];
 
     var stations = [
-        {id:'', lat: 49.487459, lng: 8.466039, name: 'Mannheim'},
-        // {id:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
-        {id:'PLANE', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
-        {id:'TRAIN', lat: 55.755826, lng: 37.617300, name: 'Moskau'},
-        {id:'TRAIN', lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
-        {id:'TRAIN', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
-        {id:'CAR', lat: 53.190595, lng: 107.330684, name: 'Olchon Island'},
-        {id:'CAR', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
-        {id:'CAR', lat: 48.694456, lng: 112.000363, name: 'Dadal'},
-        {id:'CAR', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
-        {id:'CAR', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
-        {id:'CAR', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
-        {id:'CAR', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
-        {id:'CAR', lat: 47.190032, lng: 102.834045, name: 'Karakorum'},
-        {id:'CAR', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
-        {id:'CAR', lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
-        {id:'CAR', lat: 47.319960, lng: 101.658994, name: 'Tsenkher Hot Spring'},
-        {id:'CAR', lat: 48.186290, lng: 99.856925, name: 'Terkhiin Tsagaan See'},
-        {id:'TRAIN', lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'},
-        {id:'TRAIN', lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
-        {id:'TRAIN', lat: 39.904200, lng: 116.407396, name: 'Beijing'},
-        {id:'TRAIN', lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
-        {id:'TRAIN', lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
-        {id:'TRAIN', lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
-        {id:'TRAIN', lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
-        {id:'CAR', lat: 30.081874, lng: 118.186276, name: 'Tangkou'},
-        // {id:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
-        {id:'TRAIN', lat: 25.234479, lng: 110.179953, name: 'Guilin'},
-        {id:'TRAIN', lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
-        // {id:'TRAIN', lat: 22.543096, lng: 114.057865, name: 'Shenzhen'},
-        {id:'TRAIN', lat: 22.279684, lng: 114.182431, name: 'Hong Kong'},
-        {id:'PLANE', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
-        {id:'CAR', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
-        {id:'WALKING', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
-        {id:'WALKING', lat: 27.854989, lng: 86.825890, name: 'Ama Dablam Base Camp'},
-        {id:'WALKING', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
-        {id:'WALKING_NO_PATH', lat: 27.929896, lng: 86.836261, name: 'Kongma La Pass'},
-        // {id:'WALKING', lat: 27.948104, lng: 86.810285, name: 'Lobuche'},
-        // {id:'WALKING', lat: 27.980797, lng: 86.828921, name: 'Gorak Shep'},
-        {id:'WALKING', lat: 27.995803, lng: 86.828427, name: 'Kala Patthar'},
-        {id:'WALKING', lat: 28.002586, lng: 86.852760, name: 'Everest Base Camp'},
-        {id:'WALKING_NO_PATH', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'},
-        {id:'WALKING_NO_PATH', lat: 27.953468, lng: 86.694468, name: 'Gokyo'},
-        {id:'WALKING_NO_PATH', lat: 27.945886, lng: 86.658826, name: 'Renjo La Pass'},
-        // {id:'WALKING_NO_PATH', lat: 27.831164, lng: 86.650307, name: 'Thame'},
-        {id:'WALKING_NO_PATH', lat: 27.821332, lng: 86.590522, name: 'Thame Valley'},
-        {id:'WALKING', lat: 27.687541, lng: 86.731711, name: 'Lukla'},
-        // {id:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
-        {id:'CAR', lat: 30.120858, lng: 78.317387, name: 'Geeta Ashram'},
-        // {id:'TRAIN', lat: 15.618060, lng: 73.843827, name: 'Tivim'},
-        {id:'CAR', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
-        {id:'CAR', lat: 15.713758, lng: 73.697766, name: 'Querim Beach'},
-        // {id:'CAR', lat: 19.075984, lng: 72.877656, name: 'Mumbai'}
-        {id:'CAR', lat: 19.097322, lng: 72.874460, name: 'Mumbai Airport'},
-        {id:'CAR', lat: 49.667665, lng: 9.518123, name: 'Külsheim'}
+        {day: '1', lat: 49.487459, lng: 8.466039, name: 'Mannheim'},
+        // {day:'TRAIN', lat: 50.110922, lng: 8.682127, name: 'Frankfurt'},
+        {day: '1', lat: 59.9293951, lng: 30.36227199999996, name: 'Sankt Petersburg'},
+        {day: '5', lat: 55.755826, lng: 37.617300, name: 'Moskau'},
+        {day: '999', lat: 56.838926, lng: 60.605703, name: 'Jekaterinburg'},
+        {day: '999', lat: 52.286974, lng: 104.305018, name: 'Irkutsk'},
+        {day: '999', lat: 53.190595, lng: 107.330684, name: 'Olchon Island'},
+        {day:'999', lat: 47.886399, lng: 106.905744, name: 'Ulaanbataar'},
+        {day:'999', lat: 48.694456, lng: 112.000363, name: 'Dadal'},
+        {day:'999', lat: 43.568521, lng: 104.414111, name: 'Dalandsadgad'},
+        {day:'999', lat: 44.139831, lng: 103.715885, name: 'Bajandsag'},
+        {day:'999', lat: 43.467781, lng: 103.514774, name: 'Bayandalai'},
+        {day:'999', lat: 45.403397, lng: 103.949531, name: 'Ongiin Khiid'},
+        {day:'999', lat: 47.190032, lng: 102.834045, name: 'Charkhorin'},
+        {day:'999', lat: 47.491317, lng: 102.088619, name: 'Orkhon Waterfall'},
+        {day:'999', lat: 47.012855, lng: 102.255480, name: 'Tovkhon xiid'},
+        {day:'999', lat: 47.319960, lng: 101.658994, name: 'Hot Springs Tsenkher'},
+        {day:'999', lat: 48.186290, lng: 99.856925, name: 'Lake Terkhiin Tsagaan'},
+        {day:'999', lat: 43.715215, lng: 111.904105, name: 'Zamiin-Uud'},
+        {day:'999', lat: 43.653169, lng: 111.977943, name: 'Eren Hot'},
+        {day:'999', lat: 39.904200, lng: 116.407396, name: 'Beijing'},
+        {day:'999', lat: 37.205779, lng: 112.182798, name: 'Pingyao'},
+        {day:'999', lat: 34.341574, lng: 108.939770, name: 'Xi\'an'},
+        {day:'999', lat: 31.192209, lng: 121.334297, name: 'Shanghai'},
+        {day:'999', lat: 31.329151, lng: 120.610641, name: 'Suzhou'},
+        {day:'999', lat: 30.081874, lng: 118.186276, name: 'Yellow Mountains'},
+        // {day:'CAR', lat: 29.714699, lng: 118.337521, name: 'Huangshan'},
+        {day:'999', lat: 25.234479, lng: 110.179953, name: 'Guilin'},
+        {day:'999', lat: 24.778480, lng: 110.496593, name: 'Yangshuo'},
+        // {day:'999', lat: 22.543096, lng: 114.057865, name: 'Shenzhen'},
+        {day:'999', lat: 22.279684, lng: 114.182431, name: 'Hong Kong'},
+        {day:'999', lat: 27.717245, lng: 85.323960, name: 'Katmandu'},
+        {day:'999', lat: 27.516357, lng: 86.584424, name: 'Phaplu'},
+        {day:'999', lat: 27.644733, lng: 86.726779, name: 'Puiya'},
+        {day:'999', lat: 27.806874, lng: 86.713970, name: 'Namche Bazar'},
+        {day:'999', lat: 27.854989, lng: 86.825890, name: 'Ama Dablam Base Camp'},
+        {day:'999', lat: 27.904549, lng: 86.871274, name: 'Chukhung'},
+        {day:'999', lat: 27.929896, lng: 86.836261, name: 'Kongma La Pass'},
+        // {day:'WALKING', lat: 27.948104, lng: 86.810285, name: 'Lobuche'},
+        // {day:'WALKING', lat: 27.980797, lng: 86.828921, name: 'Gorak Shep'},
+        {day:'999', lat: 27.995803, lng: 86.828427, name: 'Kala Patthar'},
+        {day:'999', lat: 28.002586, lng: 86.852760, name: 'Everest Base Camp'},
+        {day:'999', lat: 27.961791, lng: 86.751705, name: 'Cho La Pass'},
+        {day:'999', lat: 27.953468, lng: 86.694468, name: 'Gokyo'},
+        {day:'999', lat: 27.945886, lng: 86.658826, name: 'Renjo La Pass'},
+        // {day:'999', lat: 27.831164, lng: 86.650307, name: 'Thame'},
+        {day:'999', lat: 27.821332, lng: 86.590522, name: 'Thame Valley'},
+        {day:'999', lat: 27.687541, lng: 86.731711, name: 'Lukla'},
+        // {day:'CAR', lat: 30.086928, lng: 78.267612, name: 'Rishikesh'},
+        {day:'999', lat: 30.120858, lng: 78.317387, name: 'Geeta Ashram'},
+        {day:'999', lat: 27.176670, lng: 78.008075, name: 'Agra'},
+        // {day:'999', lat: 15.618060, lng: 73.843827, name: 'Tivim'},
+        {day:'999', lat: 15.600227, lng: 73.812498, name: 'Mapusa'},
+        {day:'999', lat: 15.713758, lng: 73.697766, name: 'Querim Beach'},
+        // {day:'999', lat: 19.075984, lng: 72.877656, name: 'Mumbai'}
+        {day:'999', lat: 19.097322, lng: 72.874460, name: 'Mumbai'},
+        {day:'999', lat: 49.667665, lng: 9.518123, name: 'Külsheim'}
 
     ];
 
@@ -251,7 +255,7 @@ function initMap() {
         west: Math.min.apply(null, lngs),
         east: Math.max.apply(null, lngs),
         north: Math.min.apply(null, lats),
-        south: Math.max.apply(null, lats),
+        south: Math.max.apply(null, lats)
     });
 
     var stationName = "";
@@ -259,6 +263,7 @@ function initMap() {
 
     // Show stations on the map as markers
     for (var i = 0; i < stations.length; i++) {
+        dayOfTravel = stations[i].day;
         stationName = stations[i].name;
         if (!stationName)
             continue;
@@ -468,18 +473,24 @@ function initMap() {
 
                 var infoWindowContent =
                     '<div id="' + markerId+ '">' +
-                    '<img class="iw-prev-img" src="' + rndImg + '">' +
-                    '<div class="iw-description-container">' +
-                    '<div class="iw-day-place-wrapper">' +
-                    '<div class="iw-day">Day '+ dayOfTravel + '</div>' +
-                    '<div class="iw-place">' + wayPoint + '</div>' +
-                    '</div>' +
-                    '<div class="iw-view-gallery-wrapper">' +
-                    '<div class="iw-view-gallery-txt">View Gallery </div>' +
-                    '<img class="iw-view-gallery-btn" src="./images/icons/Play_Button_2.png" onclick="openModal(\'' + wayPoint + '\')">' +
-                    '</div>' +
-                    '</div>' +
+                    '<div id="iw-container">'+
+                    '<div class="iw-title">' +
+                    '<p>'+ wayPoint + '</p>'+
+                    '</div>'+
+                    '<div class="iw-subTitle">' +
+                    '<p>Day ' + dayOfTravel + '</p>'+
+                    '</div>'+
+                    '<div id="iw-content">'+
+                    '<img class="iw-prev-img" src="'+ rndImg + '">' +
+                    '</div>'+
+                    '<div class="iw-button">' +
+                    '<button class="iw-view-gallery-btn" onclick="openModal(\'' + wayPoint + '\')">View Album</button>'+
+                    '</div>'+
+                    '</div>'+
                     '</div>';
+
+                    // '<img class="iw-view-gallery-btn" src="./images/icons/Play_Button_2.png" onclick="openModal(\'' + wayPoint + '\')">' +
+
                 infowindow.setContent(infoWindowContent);
                 infowindow.open(map, marker);
 
@@ -522,8 +533,10 @@ function initMap() {
             // Reference to the div that groups the close button elements.
             var iwCloseBtn = iwOuter.next();
 
+            // // Apply the desired effect to the close button
+            // iwCloseBtn.css({width:'17px', height:'17px', opacity: '1', right: '38px', top: '3px', border: '2px solid #44433e', 'border-radius': '0px', 'box-shadow': '0 0 5px #44433e'});
             // Apply the desired effect to the close button
-            iwCloseBtn.css({width:'17px', height:'17px', opacity: '1', right: '38px', top: '3px', border: '2px solid #44433e', 'border-radius': '0px', 'box-shadow': '0 0 5px #44433e'});
+            iwCloseBtn.css({width:'20px', height:'20px', opacity: '1', right: '42px', top: '3px', border: '3px solid #262216', 'border-radius': '18px', 'box-shadow': '0 0 5px #3990B9'});
 
             // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
             if($('.iw-content').height() < 140){

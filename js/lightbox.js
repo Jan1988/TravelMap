@@ -166,6 +166,6 @@ function showSlides(n) {
     // document.getElementsByClassName("mySlides")[0].style.display = "block";
     slides[slideIndex - 1].style.display = "block";
     // dots[slideIndex-1].className += " active";
-    captionText.innerHTML = "Bald steht hier text";
+    // captionText.innerHTML = "Bald steht hier text";
 }
 
