@@ -4,15 +4,7 @@
 // Open the Modal
 
 var $loading = $('#loadingDiv').hide();
-// $(document)
-//     .ajaxStart(function () {
-//          $loading.show();
-//     })
-//     .ajaxStop(function () {
-//
-//     });
-
-
+var slides = document.getElementsByClassName('mySlides');
 var slideIndex = 1;
 var wayPointOld = "";
 
@@ -23,6 +15,8 @@ function openModal(wayPoint) {
         slideIndex = 1;
         appendModal(wayPoint);
         wayPointOld = wayPoint;
+    }else{
+        showSlides(slideIndex);
     }
 
     // document.getElementById('myModal').style.display = "block";
@@ -39,11 +33,8 @@ function appendModal(wayPoint) {
         modalExists.remove();
     }
 
-
-    var echoDivMySlides = "nix bekommen";
-
     var theLightbox1 = '<div id="myModal" class="modal">' +
-        '<span class="close cursor" onclick="closeModal()">&times;</span>';
+        '<span class="lightboxButtonClose" onclick="closeModal()"></span>';
         // '<div class="modal-content">';
 
     var theLightbox2 = '<a class="prev" onclick="plusSlides(-1)">&#10094;</a>' +
@@ -63,7 +54,6 @@ function appendModal(wayPoint) {
             success: function (data) {
 
                 imgPathArray = JSON.parse(data);
-                console.log("concole log: " + imgPathArray);
             }
         })
     ).done(function () {
@@ -126,6 +116,7 @@ function PreloadImage(imgSrc, callback){
 function closeModal() {
     // document.getElementById('myModal').style.display = "none";
     document.getElementById('myModal').style.visibility = "hidden";
+    slides[slideIndex-1].style.visibility = "hidden";
 }
 
 
@@ -140,16 +131,9 @@ function currentSlide(n) {
 
 function showSlides(n) {
 
-
-
     var i;
-    var slides = document.getElementsByClassName('mySlides');
-
-    console.log("slides.length: " + slides.length);
-    // var dots = document.getElementsByClassName("demo");
     var captionText = document.getElementById("caption");
 
-    // console.log(captionText);
 
     if (n > slides.length) {
         slideIndex = 1
@@ -158,13 +142,19 @@ function showSlides(n) {
         slideIndex = slides.length
     }
     for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        // slides[i].style.display = "none";
+        slides[i].style.visibility = "hidden";
+        slides[i].lastChild.style.opacity = "0";
+
+
     }
     // for (i = 0; i < dots.length; i++) {
     //     dots[i].className = dots[i].className.replace(" active", "");
     // }
     // document.getElementsByClassName("mySlides")[0].style.display = "block";
-    slides[slideIndex - 1].style.display = "block";
+    // slides[slideIndex - 1].style.display = "block";
+    slides[slideIndex - 1].style.visibility = "visible";
+    slides[slideIndex - 1].lastChild.style.opacity = "1";
     // dots[slideIndex-1].className += " active";
     // captionText.innerHTML = "Bald steht hier text";
 }

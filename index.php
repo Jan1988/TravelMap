@@ -5,13 +5,11 @@
     <meta charset="utf-8">
     <title>Info windows</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/infowindow.css">
-    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -28,19 +26,18 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIQZFQ4pr9frj4L6jmm1GoDs6_iw2BwZ4&callback=initMap">
 </script>
 <script src="./js/lightbox.js"></script>
-<!--<script type="text/javascript" src="slick/slick.min.js"></script>-->
-<script type="text/javascript" src="slick/slick.js"></script>
+
 
 <script type="text/javascript">
+    console.log('ready');
+    $(document).ready(function(){
 
-    $(document).on('ready', function() {
         console.log('ready');
-        $(".regular").slick({
-            dots: true,
-            infinite: false,
-            slidesToShow: 6,
-            slidesToScroll: 4
-        });
+
+        //
+        // var mapSettingsElements = document.getElementsByClassName("gm-style-mtc");
+        // mapSettingsElements[0].firstChild().style.fontFamily = "'Indie Flower', regular";
+        // mapSettingsElements[1].firstChild().style.fontFamily = "'Indie Flower', regular";
 
     });
 </script>
