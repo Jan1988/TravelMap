@@ -70,7 +70,7 @@
     <script>
         function requestView(view) {
             $(".loadingDiv").show();
-            let url = "/" + view + ".html";
+            let url = "/" + view;
             $.get(url, function (data) {
                 $("body").html(data);
                 // alert( "success" );
