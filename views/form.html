@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Külse War Reisen</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head> 
+
+<body>
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <h1 class="display-4">Neuen Urlaub anlegen</h1>
+        </div>
+        <div class="row pb-3">
+            <div class="col">
+                <a href="/" class="btn btn-sm btn-primary">Back to overview</a>
+            </div>
+        </div>
+        <!-- Content here -->
+        <div class="row">
+            <div class="col">
+                <form>
+
+                    <div class="row">
+                        <div class="col my-2">
+                            <label for="journeyNameInput">Name</label>
+                            <input type="text" class="form-control" name="journeyName" >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col my-2"">
+                            
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" onclick="switchToSingleEntry()" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Einzeln</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="switchToCPEntry()" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Copy & Paste</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="row">
+                                        <div class="col mt-3 mb-2"">
+                                            <label for="inlineFormInputGroupUsername2">Wegpunkte</label>
+                                            <button onclick="addWaypointRow()" type="button" class="btn btn-primary float-right">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="row">
+                                        <div class="col mt-3 mb-2"">
+                                            <label for="inlineFormInputGroupUsername2">Wegpunkte</label>
+                                            <textarea disabled="true" class="form-control" id="exampleFormControlTextarea1" rows="5" name="cpTextarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col my-2">
+                            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                            <button type="button" onclick="submitForm()" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+  
+        </div>
+
+    </div>
+
+    <script>
+        let rowCount = 0;
+        $(document).ready(function(){
+            addWaypointRow();
+        });
+        
+        function submitForm(){
+            let sendData = $("form").serializeArray();
+
+            $.ajax({
+                type: "POST",
+                url: 'api/journey/create',
+                data: sendData,
+                success: function (data) {
+                    debugger
+                }
+            })
+        }
+
+        function addWaypointRow(){
+            $.get("/api/formWaypointRow", function(data){
+                $(".tab-pane.active").append(data);
+                rowCount++;
+                $(".waypointRowNumber").last().text(rowCount);
+            });
+        }
+        function switchToCPEntry(){
+            $("textarea[name='cpTextarea']").prop("disabled",false);
+            $("input[name='date']").prop("disabled",true);
+            $("input[name='latitude']").prop("disabled",true);
+            $("input[name='longitude']").prop("disabled",true);
+            $("input[name='wayPointName']").prop("disabled",true);
+            $("select[name='artOfTransportation']").prop("disabled",true);
+            
+        }
+        function switchToSingleEntry(){
+            
+            $("textarea[name='cpTextarea']").prop("disabled",true);
+            $("input[name='date']").prop("disabled",false);
+            $("input[name='latitude']").prop("disabled",false);
+            $("input[name='longitude']").prop("disabled",false);
+            $("input[name='wayPointName']").prop("disabled",false);
+            $("select[name='artOfTransportation']").prop("disabled",false);
+            
+        }
+    </script>
+</body>
+
+</html>
+
+

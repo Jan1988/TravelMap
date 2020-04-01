@@ -1,0 +1,269 @@
+body {
+    position: relative;
+    margin: 0;
+}
+
+html, body, #kwrContainer {
+    height: 100%;
+    font-family: 'Indie Flower', regular !important;
+}
+
+* {
+    box-sizing: border-box;
+}
+.fullHeight{
+    min-height: 100%;
+    height: 100%; /* cross-browser */
+}
+
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+    border: 4px solid white;
+    border-radius: 10px;
+    height: 100%;
+    box-shadow: 0px 0px 16px 10px rgba(0,0,0,0.65);
+}
+
+/* Optional: Makes the sample page fill the window. */
+.row > .column {
+    padding: 0 8px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.column {
+    float: left;
+    width: 16%;
+}
+
+/* The Modal (background) */
+/* #myModal {
+    visibility: hidden;
+    position: fixed;
+    z-index: 1;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    font-family: 'Indie Flower', regular;
+} */
+.modal{
+
+    background-color: rgba(0, 0, 0, 0.8);
+}
+/* Modal Content */
+.modal-content {
+
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: auto;
+    padding: 0;
+    width: 85%;
+    height: 92%;
+    max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    position: absolute;
+    top: 0vh;
+    right: 4vh;
+    font-size: 48px;
+    font-weight: bold;
+}
+.lightboxButtonClose{
+    /*text-shadow: rgb(255, 255, 255) 1px 1px 1px, rgb(255, 255, 255) 1px -1px 1px, rgb(255, 255, 255) -1px 1px 1px, rgb(255, 255, 255) -1px -1px 1px;*/
+    /*text-shadow: rgb(255, 255, 255) 1px 1px 1px, rgb(0, 0, 0) 1px -1px 1px, rgb(0, 0, 0) -1px 1px 1px, rgb(0, 0, 0) -1px -1px 1px;*/
+}
+
+.lightboxButtonClose:after{
+    content: "x";
+    color: white;
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    line-height: 24px;
+    right: 44px;
+    top: 2.5vh;
+    font-size: 40px;
+    font-weight: bold;
+
+}
+
+.lightboxButtonClose:hover{
+    opacity: 0.75;
+
+}
+
+
+/* Hide the slides by default */
+.mySlides {
+    /*display: none;*/
+    visibility: hidden;
+    height: 92%;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50vh;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(155, 155, 155, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 24px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 1.5vh;
+    left: 3vh;
+}
+
+.mySlides > img {
+
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    max-width: 90%;
+    max-height: 90%;
+
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    border: 4px solid white;
+    box-shadow: 0px 0px 16px 10px rgba(0,0,0,0.65);
+}
+
+
+
+/* Caption text */
+.caption-container {
+    text-align: center;
+    background-color: black;
+    padding: 2px 8px;
+    color: white;
+}
+
+
+.active,
+.demo:hover {
+    /*opacity: 0.7;*/
+    border: 1px solid white;
+
+}
+
+img.hover-shadow {
+    transition: 0.3s
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.loadingDiv {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    margin: -75px 0 0 -75px;
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #000000;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from { bottom:-100px; opacity:0 }
+    to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom {
+    from{ bottom:-100px; opacity:0 }
+    to{ bottom:0; opacity:1 }
+}
+
+/*!* When the body has the loading class, we turn*/
+   /*the scrollbar off with overflow:hidden *!*/
+/*body.loading .loadingModal {*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*!* Anytime the body has the loading class, our*/
+   /*modal element will be visible *!*/
+/*body.loading .loadingModal {*/
+    /*display: block;*/
+/*}*/
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+}
+.footer .container{
+    background-color: #e9ecef;
+}
