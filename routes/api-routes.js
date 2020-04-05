@@ -16,7 +16,7 @@ router.route('/rndImg/').get(imgController.getWaypointRndImg);
 router.route('/allImg/').get(imgController.getWaypointImgs);
 
 router.get('/formWaypointRow', function (req, res) {
-    res.sendFile(path.join(process.cwd(), 'views', 'snippets', 'formWaypointRow.html'));
+    res.sendFile(path.join(process.cwd(), 'views', 'partials', 'waypointRow.ejs'));
 });
 
 router.post('/journey/create', function(req, res){

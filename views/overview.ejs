@@ -1,0 +1,48 @@
+<%- include('partials/head')%>
+
+<body>
+
+    <div class="container h-100">
+
+        <div class="jumbotron">
+            <h1 class="display-4">Jans Holidays</h1>
+        </div>
+
+        <!-- Content here -->
+        <div class="row">
+            <% dummyData.forEach(function(journey){ %>
+                <div class="col-4">
+                    <%- include('partials/card',  {journey:journey})%>
+                </div>
+            <% }) %>
+        </div>
+
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <a href="/form" class="btn btn-primary">Neuen Urlaub anlegen</a>
+            <!-- <button onclick="requestView('form')" class="btn btn-primary">Neuen Urlaub anlegen</button> -->
+        </div>
+    </footer>
+
+    <div class="loadingDiv"></div>
+
+    <script>
+        function requestView(view) {
+            $(".loadingDiv").show();
+            let url = "/" + view;
+            $.get(url, function (data) {
+                $("body").html(data);
+                // alert( "success" );
+            })
+                .done(function () {
+                    $(".loadingDiv").hide();
+                })
+        }
+
+
+    </script>
+
+</body>
+
+</html>
