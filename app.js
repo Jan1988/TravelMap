@@ -1,7 +1,7 @@
 // Import express
 const express = require('express');
 // Import Mongoose
-// let mongoose = require('mongoose');
+let mongoose = require('mongoose');
 // Import Body parser
 let bodyParser = require('body-parser');
 // Initialise the app
@@ -22,12 +22,13 @@ const mapRoutes = require("./routes/map-routes.js");
 
 app.set('view engine', 'ejs');
 // app.set("views", path.join(__dirname, 'views'));
-app.use(function(req, res, next){
-  console.log(req.url);
-  // res.writeHead(401);
-  // res.end('Permission denied');
-  next();
-});
+
+// app.use(function(req, res, next){
+//   console.log(req.url);
+//   // res.writeHead(401);
+//   // res.end('Permission denied');
+//   next();
+// });
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
@@ -46,6 +47,15 @@ app.use('/map', mapRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
 
+//Connect to DB
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  { useNewUrlParser: true,
+    useUnifiedTopology: true},
+  function () {
+      console.log("DB is running");
+  }
+);
 
 app.listen(port, function () {
   console.log("Running RestHub on port " + port);

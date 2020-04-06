@@ -7,23 +7,33 @@
         <div class="jumbotron">
             <h1 class="display-4">Jans Holidays</h1>
         </div>
-
         <!-- Content here -->
         <div class="row">
-            <% dummyData.forEach(function(journey){ %>
+            <%
+                let isAdmin = true;
+                if(isAdmin){
+                %>
                 <div class="col-4">
-                    <%- include('partials/card',  {journey:journey})%>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Neue Karte</h4>
+                            <p class="card-text">
+                                Some quick example text to build on the card title
+                                and make up the bulk of the card's content.
+                            </p>
+                            <a href="/form" class="btn btn-secondary">Neue Reise</a>
+                        </div>
+                    </div>
+                </div>
+            <%}%>
+            <% journeys.forEach(function(journey){ %>
+                <div class="col-4">
+                    <%- include('partials/card',  {journey:journey, isAdmin:isAdmin})%>
                 </div>
             <% }) %>
         </div>
 
     </div>
-    <footer class="footer">
-        <div class="container">
-            <a href="/form" class="btn btn-primary">Neuen Urlaub anlegen</a>
-            <!-- <button onclick="requestView('form')" class="btn btn-primary">Neuen Urlaub anlegen</button> -->
-        </div>
-    </footer>
 
     <div class="loadingDiv"></div>
 

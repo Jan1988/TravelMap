@@ -1,11 +1,20 @@
 <div class="card">
-    <img class="card-img-top" src="<%=journey.rndImage%>" alt="Card image cap">
+    <%if(journey.rndImage){%>
+        <img class="card-img-top" src="<%=journey.rndImage%>" alt="Card image cap">
+    <%}%>
     <div class="card-body">
-        <h4 class="card-title">Card title</h4>
+        <h4 class="card-title"><%=journey.name%></h4>
         <p class="card-text">
             Some quick example text to build on the card title
             and make up the bulk of the card's content.
         </p>
-        <a href="/map" class="btn btn-primary"><%=journey.name%></a>
+        <a href="/map" class="btn btn-primary">Karte</a>
+        <%
+            if(isAdmin){
+            %>
+                <a href="/form" class="btn btn-secondary float-right">Bearbeiten</a>
+            <%
+            }
+        %>
     </div>
 </div>
