@@ -13,9 +13,10 @@ const port = process.env.PORT || 3000;
 const path = require('path');
 //import Routs
 const apiRoutes = require("./routes/api-routes.js");
-const viewRoutes = require("./routes/view-routes.js");
+const viewRoutes = require("./routes");
 const mapRoutes = require("./routes/map-routes.js");
-
+//import session package
+const session = require('express-session');
 
 // var kommandozeile = process.argv;
 // console.log(kommandozeile);
@@ -38,14 +39,22 @@ app.use(bodyParser.json());
 
 
 
-// Import routes
-app.use('/api', apiRoutes);
-app.use('/', viewRoutes);
-app.use('/map', mapRoutes);
 
 // middleware libraries
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'Please_SET_Session_SeCrEt',
+  resave: false,
+  saveUninitialized: true
+}))
+app.use(function(req, res, next){
+  res.locals.isAdmin = req.session && req.session.isAdmin
+  next();
+})
+
+// Import routes
+app.use('/', viewRoutes);
 
 //Connect to DB
 mongoose.connect(

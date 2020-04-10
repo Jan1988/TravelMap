@@ -42,9 +42,12 @@
                                             <button onclick="addWaypointRow()" type="button" class="btn btn-primary float-right">+</button>
                                         </div>
                                     </div>
-                                    <% journey.waypoints.forEach(function(waypoint, i){ %>
-                                        <%-include('partials/waypointRow', {i, waypoint}) %>
-                                    <%});%>
+                                    <% journey.waypoints.forEach(function(waypoint){ %>
+                                        <%-include('partials/waypointRow', {waypoint}) %>
+                                    <%});
+                                    if(mode === "create"){%>
+                                        <%-include('partials/waypointRow', {waypoint: []}) %>
+                                    <%} %>
                                 </div>
 
                                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -62,7 +65,7 @@
                     <div class="row">
                         <div class="col my-2">
                             <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                            <button type="submit" onclick="submitForm()" class="btn btn-primary">Submit</button>
+                            <button type="button" onclick="submitForm()" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -88,15 +91,26 @@
 
         function submitForm(){
             let sendData = $("form").serializeArray();
-
-            $.ajax({
-                type: "POST",
-                url: 'api/journey/create',
-                data: sendData,
-                success: function (data) {
-                    console.log(data)
-                }
-            })
+            debugger
+            <% if(mode === "create"){ %>
+                $.ajax({
+                    type: "POST",
+                    url: "/create",
+                    data: sendData,
+                    success: function (response) {
+                        console.log(response)
+                    }
+                });
+            <% }else{ %>
+                $.ajax({
+                    type: "PATCH",
+                    url: "/form/edit/<%=journey._id%>",
+                    data: sendData,
+                    success: function (response) {
+                        console.log(response)
+                    }
+                });
+            <%}%>
         }
 
         function addWaypointRow(){
