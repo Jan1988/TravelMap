@@ -1,100 +1,76 @@
 // Import player model
-Journey = require('../models/journeyModel');
+const Journey = require('../models/journeyModel');
+const
+    helpers = require('../services/helpersService'),
+    journeyService = require('../services/journeyService');
+
 
 exports.update = function(req, res){
-    console.log(req.body)
-    Journey.findById(req.params.journey_id, function (err, journey) {
-        if (err) res.send(err);
 
-        journey.name = req.body.journeyName;
-        journey.startDate = new Date();
-        journey.endDate = new Date();
-        journey.waypoints = [];
+    // console.log(req.body, req.params)
+    journeyService.getById(req.params.journey_id)
+        .then(function(journey){
+            
+            let updatedJourney = journeyService.createJourney(req.body, journey)
 
-        // if(Array.isArray(req.body.wayPointName)){
-            for(let i = 0; i < req.body.wayPointName.length; i++){
-                console.log(req.body.transport[i]);
-                let waypoint = {
-                    name: req.body.wayPointName[i],
-                    arrivalDate: new Date(),
-                    latitude: 123,
-                    longitude: 345,
-                    transport: req.body.transport[i] !== "" ? req.body.transport[i] : "-"
-                };
-                journey.waypoints.push(waypoint);
-            }
-        // }else{
-        //     let waypoint = {
-        //         name: req.body.wayPointName,
-        //         arrivalDate: req.body.date,
-        //         latitude: req.body.latitude,
-        //         longitude: req.body.longitude,
-        //         transport: req.body.artOfTransportation
-        //     };
-        //     journey.waypoints.push(waypoint);
-        // }
-    
-        // console.log(journey);
-        // save the journey and check for errors
-        journey.save(function (err) {
-            if (err)
-                res.json(err);
+            updatedJourney.save(function (err) {
+                if (err)
+                    res.json(err);
+                res.json({
+                    message: 'Journey updated!',
+                    data: updatedJourney
+                });
+            });
+        }).catch(err => {
             res.json({
-                message: 'New journey created!',
-                data: journey
+                status: "error",
+                message: err,
             });
         });
-    })
 }
 
 exports.create = function(req, res){
-
-    var journey = new Journey();
-    journey.name = req.body.journeyName;
-    journey.startDate = new Date();
-    journey.endDate = new Date();
-    journey.waypoints = []
-
-    // journey.name = "Testreise 2";
-    // journey.startDate = new Date();
-    // journey.endDate = new Date();
-    // journey.waypoints = [{
-    //         name: 'Mannheim',
-    //         arrivalDate: new Date(),
-    //         latitude: 12,
-    //         longitude: 34,
-    //         transport: 'ZUG'
-    //     },
-    //     {
-    //         name: 'Frankfurt',
-    //         arrivalDate: new Date(),
-    //         latitude: 12,
-    //         longitude: 34,
-    //         transport: 'ZUG'
-    //     }
-    // ];
-
-
-
-    for(let i = 0; i < req.body.wayPointName.length; i++){
-        let waypoint = {
-            name: req.body.wayPointName[i],
-            arrivalDate: new Date(),
-            latitude: 123,
-            longitude: 345,
-            transport: req.body.artOfTransportation[i]
-        };
-        journey.waypoints.push(waypoint);
-    }
-
-    console.log(journey);
+     let journey = journeyService.createJourney(req.body, new Journey());
     // save journey and check for errors
     journey.save(function (err) {
-        // if (err)
-        //     res.json(err);
+        if (err)
+            res.json(err);
         res.json({
-            message: 'New manager created!',
+            message: 'New journey created!',
             data: journey
         });
     });
 };
+
+exports.delete = function (req, res) {
+    Journey.deleteOne({ _id: req.params.journey_id }, function(err){
+        if (err)
+            res.json(err);
+        res.json({
+            message: 'Journey deleted!',
+            data: req.params.journey_id
+        });
+    });
+};
+
+// exports.readData = function(req, res){
+//     console.log("read Data")
+//     console.log(helpers.waypointData.length)
+    
+//     helpers.waypointData.forEach(function(subGroup, i){
+//         subGroup.forEach(function(waypoint, j){
+//             let waypointObj = {
+//                 name: waypoint.name,
+//                 arrivalDate: "",
+//                 lat: waypoint.lat,
+//                 lng: waypoint.lng,
+//                 transport: waypoint.id
+//             };
+//             console.log(waypoint);
+//             // waypoint = {name: "", date: "", lat: "", lng: "", transport: ""};
+//             res.render('partials/waypointRow', {waypointObj})
+//         })
+//     })
+
+
+// }

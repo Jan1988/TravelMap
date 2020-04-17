@@ -18,26 +18,12 @@ const mapRoutes = require("./routes/map-routes.js");
 //import session package
 const session = require('express-session');
 
-// var kommandozeile = process.argv;
-// console.log(kommandozeile);
-
-app.set('view engine', 'ejs');
-// app.set("views", path.join(__dirname, 'views'));
-
-// app.use(function(req, res, next){
-//   console.log(req.url);
-//   // res.writeHead(401);
-//   // res.end('Permission denied');
-//   next();
-// });
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
-
 
 
 // middleware libraries
@@ -48,11 +34,13 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+//isAdmin als local setzen
 app.use(function(req, res, next){
-  res.locals.isAdmin = req.session && req.session.isAdmin
+  res.locals.isAdmin = req.session && req.session.isAdmin;
   next();
 })
 
+app.set('view engine', 'ejs');
 // Import routes
 app.use('/', viewRoutes);
 

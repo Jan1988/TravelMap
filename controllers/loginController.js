@@ -17,11 +17,9 @@ const submitLogin = function(req, res){
                 res.redirect('/');
             }else{
                 req.body.loginFailed = true;
-                console.log(req.body);
                 renderLogin(req, res);
             }
         });
-    // return renderLogin(req, res);
 }
 
 const logout = function(req, res){

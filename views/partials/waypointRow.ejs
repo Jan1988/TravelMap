@@ -1,20 +1,33 @@
 
-<div class="row">
+<div class="row waypointRow">
     <div class="col-4 mb-2">
-        <div class="input-group-prepend">
-            <div class="input-group-text waypointRowNumber"></div>
-            <input type="text" class="form-control" name="wayPointName" placeholder="Wegpunkt" value="<%=waypoint.name%>">
+        <!-- <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text waypointRowNumber"></span>
+            </div>
+            <input type="text" class="form-control" name="wayPointName" placeholder="Wegpunkt" value="<%=waypoint.name%>" required>
+        </div>
+        <div class="invalid-feedback">Name fehlt !</div> -->
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text waypointRowNumber" id="inputGroupPrepend"></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Wegpunkt" name="wayPointName" value="<%=waypoint.name%>" required>
+            <div class="invalid-feedback">Wegpunkt-Name fehlt</div>
         </div>
     </div>
     <div class="col-2 mb-2 pl-0">
-        <input type="date" class="form-control" name="date" placeholder="Datum" value="<%=waypoint.arrivalDate%>">
+        <input type="date" class="form-control" name="arrivalDate" placeholder="Datum" value="<%=waypoint.arrivalDate%>">
+        <div class="invalid-feedback">Datum fehlt</div>
     </div>
     <div class="col-2 mb-2 pl-0">
-        <input type="text" class="form-control" name="latitude" placeholder="Latitude" value="<%=waypoint.latitude%>">
+        <input type="text" class="form-control" name="lat" placeholder="lat" value="<%=waypoint.lat%>" required>
+        <div class="invalid-feedback">lat fehlt</div>
     </div>
 
     <div class="col-2 mb-2 pl-0">
-        <input type="text" class="form-control" name="longitude" placeholder="Longitude" value="<%=waypoint.longitude%>">
+        <input type="text" class="form-control" name="lng" placeholder="lng" value="<%=waypoint.lng%>" required>
+        <div class="invalid-feedback">lng-Name fehlt</div>
     </div>
 
     <div class="col-2 mb-2 pl-0">
@@ -22,7 +35,7 @@
             <select class="custom-select" id="inputGroupSelect01" name="transport">
                 <option value="">-</option>
             <%
-                const options = [["TRAIN", "Zug"], ["CAR","Auto"], ["WALK", "Gelaufen"], ["PLANE", "Flugzeug"]];
+                const options = [["TRAIN", "Zug"], ["CAR","Auto/Bus"], ["WALKING", "Gelaufen"], ["PLANE", "Flugzeug"], ["NO_PATH", "Kein Weg"]];
                 options.forEach(function(option){
                     let selected = waypoint.transport === option[0] ? "selected" : "";
                     %><option value="<%=option[0]%>" <%=selected%> ><%=option[1]%></option><%

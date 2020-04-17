@@ -13,9 +13,17 @@
             </div>
         </div> 
 
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
         <script src="/js/initMap.js"></script>
         <script src="/js/lightbox.js"></script>
+        <script>
+        function initMap() {
+            $.get("/api/journey/<%=journey_id%>", function(response){
+                mapFunctions(response.waypoints);
+            })
+        }
+
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=googleMapsKey%>&callback=initMap"></script>
 
     </body>
 </html>

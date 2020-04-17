@@ -42,27 +42,11 @@ html, body, #kwrContainer {
     width: 16%;
 }
 
-/* The Modal (background) */
-/* #myModal {
-    visibility: hidden;
-    position: fixed;
-    z-index: 1;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    font-family: 'Indie Flower', regular;
-} */
 .modal{
-
     background-color: rgba(0, 0, 0, 0.8);
 }
 /* Modal Content */
 .modal-content {
-
     position: relative;
     background-color: rgba(0, 0, 0, 0.5);
     margin: auto;
@@ -81,10 +65,12 @@ html, body, #kwrContainer {
     font-size: 48px;
     font-weight: bold;
 }
+/*
 .lightboxButtonClose{
-    /*text-shadow: rgb(255, 255, 255) 1px 1px 1px, rgb(255, 255, 255) 1px -1px 1px, rgb(255, 255, 255) -1px 1px 1px, rgb(255, 255, 255) -1px -1px 1px;*/
-    /*text-shadow: rgb(255, 255, 255) 1px 1px 1px, rgb(0, 0, 0) 1px -1px 1px, rgb(0, 0, 0) -1px 1px 1px, rgb(0, 0, 0) -1px -1px 1px;*/
+    text-shadow: rgb(255, 255, 255) 1px 1px 1px, rgb(255, 255, 255) 1px -1px 1px, rgb(255, 255, 255) -1px 1px 1px, rgb(255, 255, 255) -1px -1px 1px;
+    text-shadow: rgb(255, 255, 255) 1px 1px 1px, rgb(0, 0, 0) 1px -1px 1px, rgb(0, 0, 0) -1px 1px 1px, rgb(0, 0, 0) -1px -1px 1px;
 }
+*/
 
 .lightboxButtonClose:after{
     content: "x";
@@ -241,29 +227,10 @@ img.hover-shadow {
     to{ bottom:0; opacity:1 }
 }
 
-/*!* When the body has the loading class, we turn*/
-   /*the scrollbar off with overflow:hidden *!*/
-/*body.loading .loadingModal {*/
-    /*overflow: hidden;*/
-/*}*/
-
-/*!* Anytime the body has the loading class, our*/
-   /*modal element will be visible *!*/
-/*body.loading .loadingModal {*/
-    /*display: block;*/
-/*}*/
-
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-}
-.footer .container{
-    background-color: #e9ecef;
-}
+
+
+

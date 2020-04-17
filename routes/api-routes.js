@@ -15,7 +15,7 @@ router.route('/rndImg/').get(imgController.getWaypointRndImg);
 router.route('/allImg/').get(imgController.getWaypointImgs);
 
 router.get('/formWaypointRow', function (req, res) {
-    waypoint = {name: "", date: "", latitude: "", longitude: "", transport: ""};
+    waypoint = {name: "", date: "", lat: "", lng: "", transport: ""};
     res.render('partials/waypointRow', {waypoint})
 });
 
