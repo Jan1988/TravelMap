@@ -1,30 +1,24 @@
-/**
- * Created by Külse on 01.02.2018.
- */
-// Open the Modal
 
 var $loading = $('.loadingDiv');
 var slides = document.getElementsByClassName('mySlides');
 var slideIndex = 1;
-var wayPointOld = "";
+var waypointOld = "";
+var journeyName = ""
 
-function openModal(wayPoint) {
-    console.log(wayPoint);
+function openModal(waypoint, journeyName) {
 
-    if (wayPoint != wayPointOld) {
+    if (waypoint != waypointOld) {
         slideIndex = 1;
-        appendModal(wayPoint);
-        wayPointOld = wayPoint;
+        appendModal(waypoint, journeyName);
+        waypointOld = waypoint;
     }else{
         showSlides(slideIndex);
     }
 
-    // document.getElementById('myModal').style.display = "block";
-    // document.getElementById('myModal').style.visibility = "visible";
     $("#myModal").show();
 }
 
-function appendModal(wayPoint) {
+function appendModal(waypoint, journeyName) {
 
     var modalExists = document.getElementById('myModal');
 
@@ -41,51 +35,45 @@ function appendModal(wayPoint) {
         '<a class="next" onclick="plusSlides(1)">&#10095;</a>';
 
     $("#map").after(theLightbox1);
-    debugger
-
-    $.when(
-        $loading.show(),
-        $.ajax({
-            type: "GET",
-            url: 'api/allImg',
-            data: {
-                wayPoint: wayPoint
-            },
-            success: function (data) {
-                imgPathArray = data.imgPathsArr,
-                dirPath = data.dirPath
+    
+    $loading.show();
+    $.ajax({
+        type: "GET",
+        url: '/api/allImg',
+        data: {
+            waypoint: waypoint,
+            journeyName: journeyName
+        },
+        success: function (data) {
+            imgPathArray = data.imgPathsArr,
+            dirPath = data.dirPath
+            var img = new Image();
+            for (var i = 0; i < (imgPathArray.length); i++) {
+    
+                img.onload = function () {
+                    console.log(img.src + " is loaded");
+                    $loading.hide();
+                };
+    
+                img.src = "/" + dirPath + "/" + imgPathArray[i];
+                $("#myModal").append(
+                    '<div class=\"mySlides\">' +
+                        '<div class=\"numbertext\">' + (i + 1) + " / " + imgPathArray.length + '</div>' +
+                        '<img src="' + img.src + '"/>' +
+                        // '<div class="caption-container">' +
+                        //     '<p>Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor; hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor... Hodor hodor hodor; hodor hodor hodor hodor! Hodor hodor... Hodor hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor. </p>' +
+                        // '</div>' +
+                        // '<section class="regular slider"></section>' +
+                    '</div>'
+                );
+    
             }
-        })
-    ).done(function () {
-
-        var img = new Image();
-        for (var i = 0; i < (imgPathArray.length); i++) {
-
-            img.onload = function () {
-                console.log(img.src + " is loaded");
-                $loading.hide();
-            };
-
-            img.src = dirPath + '/' + imgPathArray[i];
-            $("#myModal").append(
-                '<div class=\"mySlides\">' +
-                    '<div class=\"numbertext\">' + (i + 1) + " / " + imgPathArray.length +
-                    '</div>' +
-                    '<img src="' + img.src + '"/>' +
-                    // '<div class="caption-container">' +
-                    //     '<p>Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor; hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor... Hodor hodor hodor; hodor hodor hodor hodor! Hodor hodor... Hodor hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor. </p>' +
-                    // '</div>' +
-                    // '<section class="regular slider">' +
-                    // '</section>' +
-                // '</div>' +
-                // '</div>'+
-                '</div>'
-            );
+            $("#myModal").append(theLightbox2);
+            showSlides(1);
 
         }
-        $("#myModal").append(theLightbox2);
-        showSlides(1);
-    });
+    })
+
 }
 
 $(document).keydown(function(e) {
@@ -137,7 +125,6 @@ function showSlides(n) {
         // slides[i].style.display = "none";
         slides[i].style.visibility = "hidden";
         slides[i].lastChild.style.opacity = "0";
-
 
     }
 

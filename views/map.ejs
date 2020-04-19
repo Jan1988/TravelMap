@@ -18,7 +18,7 @@
         <script>
         function initMap() {
             $.get("/api/journey/<%=journey_id%>", function(response){
-                mapFunctions(response.waypoints);
+                mapFunctions(response);
             })
         }
 

@@ -1,4 +1,5 @@
 let rowCount = 1;
+
 $(document).ready(function(){
     calcRowIndeces();
     $("#waypointList").sortable({

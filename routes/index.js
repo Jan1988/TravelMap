@@ -44,19 +44,6 @@ router.get('/api/journey/:journey_id', function(req, res){
             res.send(response)
         });
 });
-
-
-router.get('/login', loginController.renderLogin);
-router.post('/login', loginController.submitLogin);
-router.get('/logout', loginController.logout);
-
-router.get('/form/', formController.sendForm);
-router.get('/form/:journey_id', formController.sendForm);
-
-router.post('/form', journeyController.create);
-router.patch('/form/:journey_id', journeyController.update);
-router.delete('/form/:journey_id', journeyController.delete);
-
 router.get('/api/readData', function(req, res){
     // console.log(helpers.waypointData.length)
     let fullHtmlString = "";
@@ -94,15 +81,21 @@ router.get('/api/readData', function(req, res){
 });
 
 
+router.get('/login', loginController.renderLogin);
+router.post('/login', loginController.submitLogin);
+router.get('/logout', loginController.logout);
+
+router.get('/form/', formController.sendForm);
+router.get('/form/:journey_id', formController.sendForm);
+
+router.post('/form', journeyController.create);
+router.patch('/form/:journey_id', journeyController.update);
+router.delete('/form/:journey_id', journeyController.delete);
+
 router.get('/map/:journey_id', function (req, res) {
-    // console.log(req.params.view);
-    // let viewFile = req.params.view;
     let googleMapsKey = process.env.MAP_API_KEY;
-    // console.log(googleMapsKey);
-    // res.sendFile(path.join(process.cwd(), 'views', 'map.html'));
     res.render('map', {googleMapsKey, journey_id: req.params.journey_id});
 });
-
 
 // Export API routes
 module.exports = router;

@@ -2,13 +2,15 @@
  * Created by Külse on 29.01.2018.
  */
 
-function mapFunctions(stations){
+function mapFunctions(journey){
+
+    const stations = journey.waypoints;
+
 
     var service = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('map'), {
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         fullscreenControl: false
-
     });
 
     var lineSymbolDotted = {
@@ -74,6 +76,11 @@ function mapFunctions(stations){
     let structStations = getStructStations();
     drawRoutes();
 
+
+    
+    ////////////////////////////
+    //Functions//
+    //////////////////////////
     function drawRoutes(){
 
         for (var i = 0; i < structStations.length; i++) {
@@ -270,71 +277,45 @@ function mapFunctions(stations){
 
     }
 
-    function attachSecretMessage(marker, wayPoint, arrivalDate) {
-
+    function attachSecretMessage(marker, waypoint, arrivalDate) {
+        
         var infowindow = new google.maps.InfoWindow({
-            title: 'Gallery ' + wayPoint
+            title: 'Gallery ' + waypoint
             // content: infoWindowContent
 
         });
 
-        function iwFadeIn() {
-            infowindow.open(map, marker);
-            var iw_container = $(".gm-style-iw").parent();
-            iw_container.stop().hide();
-            iw_container.fadeIn(1000);
-        }
+        // function iwFadeIn() {
+        //     infowindow.open(map, marker);
+        //     var iw_container = $(".gm-style-iw").parent();
+        //     iw_container.stop().hide();
+        //     iw_container.fadeIn(1000);
+        // }
 
         var dayOfTravel = dateToDayOfTravel(arrivalDate);
 
         marker.addListener('click', function () {
-            // Make an AJAX request to get the data
-            // The return is an array of paths of all images in wayPoint folder
-            $.when(
-                $.ajax({
-                    type: "GET",
-                    url: 'api/rndImg',
-                    data: {
-                        wayPoint: wayPoint
-                    },
-                    success: function (data) {
-                        rndImgPath = data.data;
-                    }
-                })
-            ).done(function(){
 
-                //Rnd Image from requested array as preview Image
-                // var rndImg = imgPathArray[Math.floor(Math.random()*imgPathArray.length)];
+            $.ajax({
+                type: "GET",
+                url: '/api/rndImg',
+                data: {
+                    waypoint: waypoint,
+                    journeyName: journey.name,
+                    markerId: marker.metadata.id,
+                    arrivalDate: arrivalDate,
+                },
+                success: function (data) {
+                    let infoWindowContent = data
 
-                // get marker ID to set content id to identify infoWindow
-                var markerId = marker.metadata.id;
-
-                var infoWindowContent =
-                    '<div id="' + markerId+ '">' +
-                        '<div id="iw-container">'+
-                            // '<div class="infoWindowButtonClose"></div>'+
-                            '<div id="iw-content">'+
-                                '<img class="iw-prev-img" src="'+ rndImgPath + '">' +
-
-                            '</div>'+
-                            '<div class="iw-title">'+ wayPoint + '</div>'+
-                            '<div class="iw-subTitle">Day ' + dayOfTravel + '</div>'+
-                            '<div class="iw-button">' +
-                                '<button class="iw-view-gallery-btn" onclick="openModal(\'' + wayPoint + '\')">View Album</button>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>';
-
-                    // '<img class="iw-view-gallery-btn" src="./images/icons/Play_Button_2.png" onclick="openModal(\'' + wayPoint + '\')">' +
-
-                infowindow.setContent(infoWindowContent);
-                infowindow.open(map, marker);
-
-                var iw_container = $('#'+ markerId).parent().parent().parent().parent();
-                iw_container.stop().hide();
-                iw_container.fadeIn(500);
-
-            });
+                    infowindow.setContent(infoWindowContent);
+                    infowindow.open(map, marker);
+    
+                    let iw_container = $('#'+ marker.metadata.id).parent().parent().parent().parent();
+                    iw_container.stop().hide();
+                    iw_container.fadeIn(500);
+                }
+            })
         });
 
         google.maps.event.addListener(infowindow, 'domready', function() {
@@ -385,23 +366,27 @@ function mapFunctions(stations){
                 'box-shadow': 'none',
             });
             // Reference to the div that groups the close button elements.
-            var iwCloseBtn = iwOuter.next();
-            // iwCloseBtn.remove();
+            var $iwCloseBtn = iwOuter.find(">button");
+            var $iwCloseBtnImg = $iwCloseBtn.find("img");
+            let $iwCloseBtnParent = $iwCloseBtn.parent()
 
-
-
-            // // // Apply the desired effect to the close button
-            iwCloseBtn.css({
-                right: '44px',
-                top: '5px',
-                fontSize: '32px',
-                fontWeight: 'bold',
-                textShadow:  '1px  1px 1px #ffffff, 1px -1px 1px #ffffff,-1px  1px 1px #ffffff,-1px -1px 1px #ffffff',
-                color: 'white'
+            $iwCloseBtnParent.css({overflow: "unset"});
+            // Apply the desired effect to the close button
+            $iwCloseBtn.css({
+                background: "white",
+                top: "-10px",
+                right: "-10px",
+                width: "18px",
+                height: "18px",
+                borderRadius: "25px",
+                border: "1px solid black"
             });
+            $iwCloseBtn.removeClass("gm-ui-hover-effect");
+            $iwCloseBtn.addClass("customCloseBtn");
+            $iwCloseBtnImg.css({margin: "auto"});
             // // Apply the desired effect to the close button
-            iwCloseBtn.addClass('infoWindowButtonClose');
-            iwCloseBtn.children().remove();
+            // iwCloseBtn.addClass('infoWindowButtonClose');
+            // iwCloseBtn.children().remove();
 
             // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
             if($('.iw-content').height() < 140){
