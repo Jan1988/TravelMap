@@ -12,9 +12,7 @@ const port = process.env.PORT || 3000;
 //import path
 const path = require('path');
 //import Routs
-const apiRoutes = require("./routes/api-routes.js");
 const viewRoutes = require("./routes");
-const mapRoutes = require("./routes/map-routes.js");
 //import session package
 const session = require('express-session');
 

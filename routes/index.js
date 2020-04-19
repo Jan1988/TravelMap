@@ -2,6 +2,7 @@ const
     router = require("express").Router(),
     imgController = require('../controllers/imgController'),
     journeyController = require('../controllers/journeyController'),
+    overviewController = require('../controllers/overviewController'),
     loginController = require('../controllers/loginController'),
     formController = require('../controllers/formController'),
     Journey = require('../models/journeyModel'),
@@ -9,20 +10,12 @@ const
     helpers = require('../services/helpersService'),
     journeyService = require('../services/journeyService'),
     path = require('path');
+    
 require('dotenv').config();
 
 
 // Set default API response
-router.get('/', function (req, res) {
-    journeyService.getAll()
-        .then(journeys => {
-            res.render('overview', {journeys});
-        })
-        .catch(err => {
-            res.status(500);
-            res.end("Error: " + err.message);
-        });
-});
+router.get('/', overviewController.getOverview);
 
 // Set default API response
 router.get('/api', function (req, res) {
@@ -31,7 +24,7 @@ router.get('/api', function (req, res) {
         message: 'Welcome to RESTHub crafted with love!'
     });
 });
-router.get('/api/rndImg', imgController.getWaypointRndImg);
+router.get('/api/rndImg', imgController.getInfoWindow);
 router.get('/api/allImg', imgController.getWaypointImgs);
 router.get('/api/formWaypointRow', function (req, res) {
     waypoint = {name: "", date: "", lat: "", lng: "", transport: ""};
@@ -44,42 +37,7 @@ router.get('/api/journey/:journey_id', function(req, res){
             res.send(response)
         });
 });
-router.get('/api/readData', function(req, res){
-    // console.log(helpers.waypointData.length)
-    let fullHtmlString = "";
-
-    helpers.waypointData.forEach(function(subGroup, i){
-        subGroup.forEach(function(waypointIn, j){
-            let station = helpers.stations.find(function(station){
-                return station.name === waypointIn.name;
-            });
-
-            let newDateString = ""
-            if(station){
-                let splitedDate = station.dateOfArrival.split("-")
-                newDateString = "2017-" + splitedDate[1] + "-" + splitedDate[0];
-            }
-            
-            let waypoint = {
-                name: waypointIn.name,
-                arrivalDate: newDateString,
-                lat: waypointIn.lat,
-                lng: waypointIn.lng,
-                transport: waypointIn.id
-            };
-
-            // const rowPath = path.join(process.cwd(), 'views', 'partials', 'waypointRow.ejs' );
-            // waypoint = {name: "", date: "", lat: "", lng: "", transport: ""};
-            res.render('partials/waypointRow', {waypoint}, function(err, html){
-                fullHtmlString += html;
-            });
-
-        })
-    })
-    
-    res.send(fullHtmlString);
-});
-
+router.get('/api/readData', helpers.readWaypoints);
 
 router.get('/login', loginController.renderLogin);
 router.post('/login', loginController.submitLogin);

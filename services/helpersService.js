@@ -1,5 +1,42 @@
 Journey = require('../models/journeyModel');
 
+
+exports.readWaypoints = function(req, res){
+    // console.log(helpers.waypointData.length)
+    let fullHtmlString = "";
+
+    helpers.waypointData.forEach(function(subGroup, i){
+        subGroup.forEach(function(waypointIn, j){
+            let station = helpers.stations.find(function(station){
+                return station.name === waypointIn.name;
+            });
+
+            let newDateString = ""
+            if(station){
+                let splitedDate = station.dateOfArrival.split("-")
+                newDateString = "2017-" + splitedDate[1] + "-" + splitedDate[0];
+            }
+            
+            let waypoint = {
+                name: waypointIn.name,
+                arrivalDate: newDateString,
+                lat: waypointIn.lat,
+                lng: waypointIn.lng,
+                transport: waypointIn.id
+            };
+
+            // const rowPath = path.join(process.cwd(), 'views', 'partials', 'waypointRow.ejs' );
+            // waypoint = {name: "", date: "", lat: "", lng: "", transport: ""};
+            res.render('partials/waypointRow', {waypoint}, function(err, html){
+                fullHtmlString += html;
+            });
+
+        })
+    })
+    
+    res.send(fullHtmlString);
+}
+
 exports.formatDate = function(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),

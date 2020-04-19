@@ -1,7 +1,5 @@
 <div class="card">
-    <%if(journey.rndImage){%>
-        <img class="card-img-top" src="<%=journey.rndImage%>" alt="Card image cap">
-    <%}%>
+    <img class="card-img-top" src="<%=teaserImgs[journey.id]%>" alt="Card image cap">
     <div class="card-body">
         <h4 class="card-title"><%=journey.name%></h4>
         <p class="card-text">

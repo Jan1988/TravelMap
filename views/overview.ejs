@@ -36,7 +36,7 @@
             <%}%>
             <% journeys.forEach(function(journey){ %>
                 <div class="col-4 mb-3">
-                    <%- include('partials/card',  {journey, isAdmin})%>
+                    <%- include('partials/card',  {journey, teaserImgs, isAdmin})%>
                 </div>
             <% }) %>
         </div>
