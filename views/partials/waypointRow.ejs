@@ -22,12 +22,12 @@
     </div>
     <div class="col-2 mb-2 pl-0">
         <input type="text" class="form-control" name="lat" placeholder="lat" value="<%=waypoint.lat%>" required>
-        <div class="invalid-feedback">lat fehlt</div>
+        <div class="invalid-feedback">Latitude fehlt</div>
     </div>
 
     <div class="col-2 mb-2 pl-0">
         <input type="text" class="form-control" name="lng" placeholder="lng" value="<%=waypoint.lng%>" required>
-        <div class="invalid-feedback">lng-Name fehlt</div>
+        <div class="invalid-feedback">Longitude fehlt</div>
     </div>
 
     <div class="col-2 mb-2 pl-0">
@@ -35,7 +35,7 @@
             <select class="custom-select" id="inputGroupSelect01" name="transport">
                 <option value="">-</option>
             <%
-                const options = [["TRAIN", "Zug"], ["CAR","Auto/Bus"], ["WALKING", "Gelaufen"], ["PLANE", "Flugzeug"], ["NO_PATH", "Kein Weg"]];
+                const options = [["TRAIN", "Zug"], ["CAR","Auto/Bus"], ["WALKING", "Gelaufen"], ["PLANE", "Flugzeug"],["SHIP", "Schiff"], ["NO_PATH", "Kein Weg"]];
                 options.forEach(function(option){
                     let selected = waypoint.transport === option[0] ? "selected" : "";
                     %><option value="<%=option[0]%>" <%=selected%> ><%=option[1]%></option><%

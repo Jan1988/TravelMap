@@ -10,8 +10,15 @@ function mapFunctions(journey){
     var service = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('map'), {
         mapTypeId: google.maps.MapTypeId.TERRAIN,
-        fullscreenControl: false
+        fullscreenControl: false,
+        mapTypeControl: false
     });
+
+    var mapTypeControl = document.getElementById('mapTypeButtonsWrapper');
+    var backButton = document.getElementById('backButton');
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapTypeControl);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(backButton);
+
 
     var lineSymbolDotted = {
         path: google.maps.SymbolPath.CIRCLE,
@@ -48,7 +55,17 @@ function mapFunctions(journey){
         // anchor: new google.maps.Point(650,300)
         anchor: new google.maps.Point(350,300)
     };
-
+    
+    
+    var shipSymbolOne = {
+        path: 'M509.548,455.464c-3.624-4.168-9.94-4.608-14.108-0.984c-10.663,9.271-20.531,18.883-34.522,22.75 c-15.553,4.298-30.334,0.906-44.41-6.132l52.079-175.224c1.296-4.359-0.514-9.044-4.403-11.401l-48.183-29.195v-85.253 c0-5.522-4.477-10-10-10h-20v-30c0-5.522-4.477-10-10-10h-31.5v-30c0-5.522-4.477-10-10-10h-48.5v-70c0-5.522-4.477-10-10-10h-40 c-5.523,0-10,4.478-10,10v70h-48.5c-5.523,0-10,4.478-10,10v30h-31.5c-5.523,0-10,4.478-10,10v30h-20c-5.523,0-10,4.478-10,10 v85.253l-48.182,29.194c-3.89,2.357-5.699,7.042-4.403,11.401c0,0,51.951,174.79,51.973,174.866 c-0.887-2.984-16.889-4.949-19.718-5.315c-29.117-3.768-51.258,10.818-72.232,29.055c-4.168,3.624-4.608,9.939-0.985,14.107 c3.459,3.978,9.896,4.646,14.107,0.985c21.608-18.784,45.969-33.103,74.559-18.806c25.864,12.931,52.636,18.476,79.575,4.3 c21.722-11.434,42.684-21.307,66.93-9.763l24.927,11.87c21.326,10.156,45.674,9.922,66.799-0.642 c13.018-6.509,26.249-15.171,41.119-16.193c14.576-1.001,28.66,4.426,41.467,10.835c16.919,8.46,36.726,10.15,54.894,4.971 c16.735-4.771,28.914-15.429,41.731-26.573C512.731,465.947,513.171,459.632,509.548,455.464z M396.001,180.025v63.135 l-104.198-63.135H396.001z M246.001,20.025h20v60h-20V20.025z M187.501,100.025h137v20h-137V100.025z M116.001,180.025h104.198 L116.001,243.16V180.025z M246.001,467.14c0.002-1.777-14.255-5.055-16.12-5.459c-17.404-3.767-36.088-1.375-51.866,6.93 c-11.448,6.025-22.493,13.054-35.586,14.74c-0.024,0.003-0.048,0.006-0.072,0.009c-7.65,0.93-15.48,0.367-22.884-1.792 L64.786,297.577l181.215-109.8C246.001,187.777,246.001,467.129,246.001,467.14z M146.001,160.025v-20h220v20H146.001z M398.023,463.084c0.111-3.094-28.039-3.066-29.925-2.867c-17.358,1.836-32.374,10.767-47.692,18.426 c-18.096,9.048-36.716,6.447-54.405-1.98V187.777l181.215,109.8L398.023,463.084z',
+        scale: 0.03,
+        strokeOpacity: 1,
+        strokeColor: 'black',
+        strokeWeight: 1.0,
+        rotation: 180,
+        anchor: new google.maps.Point(330,300)
+    }
 
     // Zoom and center map automatically by stations (each station will be in visible map area)
     var lngs = stations.map(function(station) { return station.lng; });
@@ -70,7 +87,7 @@ function mapFunctions(journey){
             title: stations[i].name
         });
         marker.metadata = {id: i};
-        attachSecretMessage(marker, stations[i].name, stations[i].arrivalDate);
+        attachSecretMessage(marker, stations[i]);
     }
 
     let structStations = getStructStations();
@@ -110,6 +127,9 @@ function mapFunctions(journey){
                     break;
                 case 'NO_PATH':
                     routeServiceWalkNoPath(structStations[i]);
+                    break;
+                case 'SHIP':
+                    routeServiceShip(structStations[i]);
                     break;
                 default:
                     console.log('NOTHING');
@@ -166,6 +186,7 @@ function mapFunctions(journey){
         };
         service.route(service_options_WALKING, service_callback_WALKING);
     }
+    
     function routeServiceTrain(path){
         var trainPath = new google.maps.Polyline({
             path: path,
@@ -181,6 +202,24 @@ function mapFunctions(journey){
             geodesic: true
         });
         trainPath.setMap(map);
+    }
+    function routeServiceShip(path){
+        var shipRoute = new google.maps.Polyline({
+            path: path,
+            icons: [
+                {
+                    icon: shipSymbolOne,
+                    offset: '100%',
+                    zIndex: 99999999
+                },
+            ],
+            strokeColor: "#429ef5",
+            strokeOpacity: 0.6,
+            strokeWeight: 4,
+            geodesic: true
+        });
+        shipRoute.setMap(map);
+        animatePlane(shipRoute);
     }
     function routeServicePlane(path){
         var flightPath = new google.maps.Polyline({
@@ -251,6 +290,25 @@ function mapFunctions(journey){
         });
         renderer.setDirections(response);
     };
+    function service_callback_SHIP(response, status) {
+        if (status != 'OK') {
+            console.log('SHIP Directions request failed due to ' + status);
+            return;
+        }
+        var renderer = new google.maps.DirectionsRenderer;
+        renderer.setMap(map);
+        renderer.setOptions({
+            suppressMarkers: true,
+            preserveViewport: true,
+            polylineOptions: {
+                strokeColor: "#429ef5",
+                strokeWeight: 3,
+                strokeOpacity: 1,
+                strokeOpacity: 0.4,
+            }
+        });
+        renderer.setDirections(response);
+    };
 
     // Use the DOM setInterval() function to change the offset of the symbol
     // at fixed intervals.
@@ -265,34 +323,31 @@ function mapFunctions(journey){
         }, 20);
     }
 
-    function dateToDayOfTravel(dateOfTravel) {
-        var year = 2017;
-        var startDate = new Date(year, 7, 6, 0, 0, 0, 0);
+    // function dateToDayOfTravel(dateOfTravel) {
+    //     var year = 2017;
+    //     var startDate = new Date(year, 7, 6, 0, 0, 0, 0);
 
-        var splittedDateOfTravel = dateOfTravel.split("-")
-        var waypointArrivalDate = new Date(year, splittedDateOfTravel[1], splittedDateOfTravel[0], 0, 0, 0 ,0);
-        var dayOfTravel = parseInt(Math.floor((waypointArrivalDate - startDate)/86400000));
+    //     var splittedDateOfTravel = dateOfTravel.split("-")
+    //     var waypointArrivalDate = new Date(year, splittedDateOfTravel[1], splittedDateOfTravel[0], 0, 0, 0 ,0);
+    //     var dayOfTravel = parseInt(Math.floor((waypointArrivalDate - startDate)/86400000));
 
-        return dayOfTravel;
+    //     return dayOfTravel;
 
-    }
+    // }
 
-    function attachSecretMessage(marker, waypoint, arrivalDate) {
-        
-        var infowindow = new google.maps.InfoWindow({
-            title: 'Gallery ' + waypoint
+    function attachSecretMessage(marker, waypoint) {
+        var infoWindow = new google.maps.InfoWindow({
+            title: 'Gallery ' + waypoint.name
             // content: infoWindowContent
 
         });
 
         // function iwFadeIn() {
-        //     infowindow.open(map, marker);
+        //     infoWindow.open(map, marker);
         //     var iw_container = $(".gm-style-iw").parent();
         //     iw_container.stop().hide();
         //     iw_container.fadeIn(1000);
         // }
-
-        var dayOfTravel = dateToDayOfTravel(arrivalDate);
 
         marker.addListener('click', function () {
 
@@ -303,13 +358,14 @@ function mapFunctions(journey){
                     waypoint: waypoint,
                     journeyName: journey.name,
                     markerId: marker.metadata.id,
-                    arrivalDate: arrivalDate,
+                    // arrivalDate: arrivalDate,
+                    // arrivalDay: arrivalDay,
                 },
                 success: function (data) {
                     let infoWindowContent = data
 
-                    infowindow.setContent(infoWindowContent);
-                    infowindow.open(map, marker);
+                    infoWindow.setContent(infoWindowContent);
+                    infoWindow.open(map, marker);
     
                     let iw_container = $('#'+ marker.metadata.id).parent().parent().parent().parent();
                     iw_container.stop().hide();
@@ -318,9 +374,9 @@ function mapFunctions(journey){
             })
         });
 
-        google.maps.event.addListener(infowindow, 'domready', function() {
+        google.maps.event.addListener(infoWindow, 'domready', function() {
 
-            // Reference to the DIV that wraps the bottom of infowindow
+            // Reference to the DIV that wraps the bottom of infoWindow
             var iwOuter = $('.gm-style-iw');
 
             /* Since this div is in a position prior to .gm-div style-iw.
@@ -339,7 +395,7 @@ function mapFunctions(journey){
             // Removes white background DIV
             iwBackground.children(':nth-child(4)').css({'display' : 'none'});
 
-//            // Moves the infowindow 115px to the right.
+//            // Moves the infoWindow 115px to the right.
 //            iwOuter.parent().parent().css({left: '115px'});
 
             // Moves the shadow of the arrow 76px to the left margin.
@@ -388,7 +444,7 @@ function mapFunctions(journey){
             // iwCloseBtn.addClass('infoWindowButtonClose');
             // iwCloseBtn.children().remove();
 
-            // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
+            // If the content of infoWindow not exceed the set maximum height, then the gradient is removed.
             if($('.iw-content').height() < 140){
                 $('.iw-bottom-gradient').css({display: 'none'});
             }
@@ -400,6 +456,16 @@ function mapFunctions(journey){
             //
             // iwCloseBtn.remove();
         });
+
     }
+
+    this.setMapType = function(Id){
+        map.setMapTypeId(Id);
+    }
+
+    google.maps.event.addListener(map, 'tilesloaded', function(){
+
+        
+    });
 }
 

@@ -22,11 +22,11 @@
                     <div class="row">
                         <div class="col my-2">
                             <label for="journeyNameInput">Name</label>
-                            <input type="text" class="form-control" name="journeyName" value="<%=journey.name%>">
-                            <div class="invalid-feedback">Looks good!</div>
+                            <input type="text" class="form-control" name="journeyName" value="<%=journey.name%>" required>
+                            <div class="invalid-feedback">Reise-Titel fehlt</div>
                         </div>
                     </div>
-                        <div class="row">
+                    <div class="row">
                         <div class="col my-2"">
                             
                             <ul class="nav nav-tabs" id="myTab" role="tablist">

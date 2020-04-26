@@ -1,11 +1,20 @@
 <%- include('partials/head')%>
 
         <div class="container-fluid p-3 h-100 d-flex flex-column">
-            <div class="row pb-3">
-                <div class="col">
-                    <a href="/" class="btn btn-sm btn-primary">Back to overview</a>
-                </div>
+            
+            <div id="mapTypeButtonsWrapper" class="btn-group-toggle m-2 customMapControl" data-toggle="buttons">
+                <label class="btn btn-secondary btn-sm active">
+                    <input type="radio" name="mapTypeButtons" checked onchange="setMapType('terrain')">Terrain
+                </label>
+                <label class="btn btn-secondary btn-sm">
+                    <input type="radio" name="mapTypeButtons" onchange="setMapType('satellite')">Satellite
+                </label>
+
+                <!-- <button type="button" class="btn btn-secondary active" onclick="setMapType('terrain')">Terrain</button>
+                <button type="button" class="btn btn-secondary" onclick="setMapType('satellite')">Sattelit</button> -->
             </div>
+
+            <a id="backButton" href="/" class="btn btn-sm btn-secondary btn-sm m-2 customMapControl">Back to overview</a>
             <div class="row flex-grow-1">
                 <div class="col">
                     <div id="map"></div>
@@ -16,12 +25,11 @@
         <script src="/js/initMap.js"></script>
         <script src="/js/lightbox.js"></script>
         <script>
-        function initMap() {
-            $.get("/api/journey/<%=journey_id%>", function(response){
-                mapFunctions(response);
-            })
-        }
-
+            function initMap() {
+                $.get("/api/journey/<%=journey_id%>", function(response){
+                    mapFunctions(response);
+                })
+            }
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=googleMapsKey%>&callback=initMap"></script>
 

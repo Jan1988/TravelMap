@@ -51,6 +51,9 @@ exports.formatDate = function(date) {
     return [year, month, day].join('-');
 }
 
+exports.millisToDays = function(millis){
+    return millis/(1000*60*60*24);
+}
 
 exports.waypointData = [
         [

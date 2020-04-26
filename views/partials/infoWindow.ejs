@@ -4,10 +4,10 @@
         <div id="iw-content">
             <img class="iw-prev-img" src="<%=rndImgPath%>"> 
         </div>
-        <div class="iw-title"><%=waypoint%></div>
-        <div class="iw-subTitle">Day <%=arrivalDate%></div>
+        <div class="iw-title"><%=waypoint.name%></div>
+        <div class="iw-subTitle">Day <%=waypoint.arrivalDay%></div>
         <div class="iw-button"> 
-            <button class="iw-view-gallery-btn" onclick="openModal('<%=waypoint%>','<%=journeyName%>')">View Album</button>
+            <button class="iw-view-gallery-btn" onclick="openModal('<%=waypoint.name%>','<%=journeyName%>')">View Album</button>
         </div>
     </div>
 </div>

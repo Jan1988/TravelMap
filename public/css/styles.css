@@ -8,7 +8,7 @@ body {
 
 html, body, #kwrContainer {
     height: 100%;
-    font-family: 'Indie Flower', regular !important;
+    /* font-family: 'Indie Flower', regular !important; */
 }
 
 .fullHeight{

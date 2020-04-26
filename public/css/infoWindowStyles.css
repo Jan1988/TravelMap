@@ -1,3 +1,7 @@
+.customMapControl{ display: none; }
+/* Display the control once it is inside the map. */
+#map .customMapControl { display: block; }
+
 .gm-style .gm-style-iw-c{
     padding: 0 !important;
 
@@ -6,8 +10,7 @@
 .gm-style-iw {
     width: 160px !important;
     background-color: white;
-    box-shadow: 1px 2px 4px rgba(255, 255, 255, 0.51);
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5%;
     pointer-events: all;
 }
@@ -17,8 +20,8 @@
 }
 
 .gm-style .gm-style-iw-t::after{
-    border-bottom: 1px solid;
-    border-left: 1px solid;
+    /* border-bottom: 1px solid; */
+    /* border-left: 1px solid; */
     top: -1px;
 }
 .customCloseBtn:hover{
@@ -29,7 +32,7 @@
 #iw-container .iw-subTitle,
 .iw-view-gallery-btn{
     text-align: center;
-    font-family: 'Indie Flower', regular;
+    font-family: 'Varela Round';
     color: black;
     pointer-events: all;
 }
@@ -48,7 +51,7 @@
     max-height: 100%;
     width: 100%;
     border-radius: 5%;
-    border-bottom: 1px solid;
+    /* border-bottom: 1px solid; */
 }
 
 .iw-view-gallery-btn {

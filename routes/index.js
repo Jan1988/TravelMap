@@ -16,6 +16,10 @@ require('dotenv').config();
 
 // Set default API response
 router.get('/', overviewController.getOverview);
+router.get('/mapTest', function(req, res){
+    let googleMapsKey = process.env.MAP_API_KEY;
+    res.render('mapTest', {googleMapsKey});
+});
 
 // Set default API response
 router.get('/api', function (req, res) {
