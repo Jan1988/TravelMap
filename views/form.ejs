@@ -21,11 +21,18 @@
 
                     <div class="row">
                         <div class="col my-2">
-                            <label for="journeyNameInput">Name</label>
+                            <label for="journeyName">Name</label>
                             <input type="text" class="form-control" name="journeyName" value="<%=journey.name%>" required>
                             <div class="invalid-feedback">Reise-Titel fehlt</div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col my-2">
+                            <label for="teaserText">Teaser Text</label>
+                            <textarea type="text" class="form-control" name="teaserText" value="" required></textarea>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col my-2"">
                             
@@ -42,9 +49,17 @@
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                                     <div class="row">
-                                        <div class="col mt-3 mb-2"">
+                                        <div class="col mt-3 mb-2">
                                             <label for="inlineFormInputGroupUsername2">Wegpunkte</label>
-                                            <button onclick="addWaypointRow()" type="button" class="btn btn-primary float-right">+</button>
+                                        <div class="float-right" role="group">
+                                            <button onclick="reverseWayopointList()" type="button" class="btn btn-primary btn-icon mr-2">
+                                                <i class="fa fa-sort"></i>
+                                            </button>
+                                            
+                                            <button onclick="addWaypointRow()" type="button" class="btn btn-primary btn-icon">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
                                         </div>
                                     </div>
                                     <div id="waypointList">
@@ -62,8 +77,8 @@
                                                 <button type="button" onclick="submitForm('create')" class="btn btn-primary">Erstellen</button>
                                             <%}else{%>
                                                 <button type="button" onclick="submitForm('edit', '<%=journey._id%>')" class="btn btn-primary">Update</button>
+                                                <button type="button" onclick="" class="btn btn-danger" data-toggle="modal" data-target="#yesNoModal">Löschen</button>
                                             <%}%>
-                                            <button type="button" onclick="deleteJourney('<%=journey._id%>')" class="btn btn-danger">Löschen</button>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -101,6 +116,24 @@
   
         </div>
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="yesNoModal" tabindex="-1" role="dialog" aria-labelledby="yesNoModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sicherheitsabfrage</h5>
+                </div>
+                <div class="modal-body">
+                    Soll die Reise wirklich gelöscht werden ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="deleteJourney('<%=journey._id%>')">Ja</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="/js/form.js"></script>
 </body> 

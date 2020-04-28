@@ -1,4 +1,5 @@
 let rowCount = 1;
+let sortOrder = "down";
 
 $(document).ready(function(){
     calcRowIndeces();
@@ -11,7 +12,8 @@ $(document).ready(function(){
 });
 
 function calcRowIndeces(){
-    let rowNumbersArr = $(".waypointRowNumber")
+    let rowNumbersArr = sortOrder === "down" ?  $(".waypointRowNumber") : $(".waypointRowNumber").get().reverse();
+
     $.each(rowNumbersArr, function(i, rowNumberElem){
         let newNum = i+1;
         rowNumberElem.textContent = newNum;
@@ -79,9 +81,14 @@ function deleteJourney(journeyId){
 
 function addWaypointRow(){
     $.get("/api/formWaypointRow", function(data){
-        $("#waypointList").append(data);
         rowCount++;
-        $(".waypointRowNumber").last().text(rowCount);
+        $waypointRow = $(data);
+        $waypointRow.find(".waypointRowNumber").text(rowCount)
+        if(sortOrder === "down"){
+            $("#waypointList").append($waypointRow);
+        }else{
+            $("#waypointList").prepend($waypointRow);
+        }
     });
 }
 function removeWaypointRow(removeButton){
@@ -108,6 +115,13 @@ function switchToSingleEntry(){
     
 }
 
+function reverseWayopointList(){
+
+    var list = $("#waypointList");
+    var listItems = list.children(".row");
+    list.append(listItems.get().reverse());
+    sortOrder = sortOrder === "down" ? "up":"down";
+}
 function readDataTest(){
 
         // var stationsNoPath = [

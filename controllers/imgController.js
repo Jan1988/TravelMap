@@ -26,9 +26,9 @@ exports.getInfoWindow = function(req, res){
 exports.getWaypointImgs = function(req, res){
     console.log(req.query);
 
-    let waypoint = req.query.waypoint;
+    let waypointName = req.query.waypointName;
     let journeyName = req.query.journeyName;
-    let folderPath = path.join(process.cwd(), 'public', 'images', journeyName, waypoint.name);
+    let folderPath = path.join(process.cwd(), 'public', 'images', journeyName, waypointName);
     
 
     fs.exists(folderPath, function (exist) {
@@ -39,7 +39,7 @@ exports.getWaypointImgs = function(req, res){
             return;
         }else{
             const dirs = fs.readdirSync(folderPath);
-            const relFolderPath = path.join('images', journeyName, waypoint.name);
+            const relFolderPath = path.join('images', journeyName, waypointName);
 
             res.json({
                 message: 'Retrieving all image paths of waypoint from server',

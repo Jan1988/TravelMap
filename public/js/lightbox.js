@@ -2,15 +2,15 @@
 var $loading = $('.loadingDiv');
 var slides = document.getElementsByClassName('mySlides');
 var slideIndex = 1;
-var waypointOld = "";
+var waypointNameOld = "";
 var journeyName = ""
 
-function openModal(waypoint, journeyName) {
+function openModal(waypointName, journeyName) {
 
-    if (waypoint != waypointOld) {
+    if (waypointName != waypointNameOld) {
         slideIndex = 1;
-        appendModal(waypoint, journeyName);
-        waypointOld = waypoint;
+        appendModal(waypointName, journeyName);
+        waypointNameOld = waypointName;
     }else{
         showSlides(slideIndex);
     }
@@ -18,7 +18,7 @@ function openModal(waypoint, journeyName) {
     $("#myModal").show();
 }
 
-function appendModal(waypoint, journeyName) {
+function appendModal(waypointName, journeyName) {
 
     var modalExists = document.getElementById('myModal');
 
@@ -41,7 +41,7 @@ function appendModal(waypoint, journeyName) {
         type: "GET",
         url: '/api/allImg',
         data: {
-            waypoint: waypoint,
+            waypointName: waypointName,
             journeyName: journeyName
         },
         success: function (data) {

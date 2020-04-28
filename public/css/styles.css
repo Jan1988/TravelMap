@@ -41,11 +41,10 @@ html, body, #kwrContainer {
     float: left;
     width: 16%;
 }
-
 .modal{
     background-color: rgba(0, 0, 0, 0.8);
 }
-/* Modal Content */
+/* 
 .modal-content {
     position: relative;
     background-color: rgba(0, 0, 0, 0.5);
@@ -54,7 +53,7 @@ html, body, #kwrContainer {
     width: 85%;
     height: 92%;
     max-width: 1200px;
-}
+} */
 
 /* The Close Button */
 .close {
