@@ -5,7 +5,12 @@
 function mapFunctions(journey){
 
     const stations = journey.waypoints;
-
+    markerColor = {
+        active: '#cccccc',
+        inactive: '#cccccc',
+        hovered: '#ffffff',
+    }
+    let markerWasClicked = false;
 
     var service = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -38,14 +43,31 @@ function mapFunctions(journey){
     //Icon and symbols created
     var markerIcon = {
         path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-        fillColor: '#ffffff',
+        fillColor: markerColor.active,
         fillOpacity: 0.95,
         scale: 1.25,
         strokeColor: '#000000',
-        strokeWeight: 1.5,
+        strokeWeight: 1.0,
         anchor: new google.maps.Point(12, 24)
     };
-
+    var markerIconHovered = {
+        path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+        fillColor: markerColor.hovered,
+        fillOpacity: 1.0,
+        scale: 1.25,
+        strokeColor: '#000000',
+        strokeWeight: 1.0,
+        anchor: new google.maps.Point(12, 24)
+    };
+    var markerIconInactive = {
+        path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+        fillColor: markerColor.inactive,
+        fillOpacity: .85,
+        scale: .9,
+        strokeColor: '#000000',
+        strokeWeight: 0.5,
+        anchor: new google.maps.Point(12, 24)
+    };
     var airplaneSymbol = {
         path: 'M362.985,430.724l-10.248,51.234l62.332,57.969l-3.293,26.145 l-71.345-23.599l-2.001,13.069l-2.057-13.529l-71.278,22.928l-5.762-23.984l64.097-59.271l-8.913-51.359l0.858-114.43 l-21.945-11.338l-189.358,88.76l-1.18-32.262l213.344-180.08l0.875-107.436l7.973-32.005l7.642-12.054l7.377-3.958l9.238,3.65 l6.367,14.925l7.369,30.363v106.375l211.592,182.082l-1.496,32.247l-188.479-90.61l-21.616,10.087l-0.094,115.684',
         scale: 0.03,
@@ -79,14 +101,32 @@ function mapFunctions(journey){
 
     // Show stations on the map as markers
     for (var i = 0; i < stations.length; i++) {
-
+        
         var marker = new google.maps.Marker({
             position: {lat: stations[i].lat, lng: stations[i].lng},
             map: map,
-            icon: markerIcon,
-            title: stations[i].name
+            title: stations[i].name,
         });
-        marker.metadata = {id: i};
+        if(stations[i].hasImages){
+            marker.setIcon(markerIcon);
+            marker.setClickable(true);
+            marker.addListener('mouseover', function() {
+                if(this.metadata.iwOpen) return;
+                this.setIcon(markerIconHovered);
+            });
+            marker.addListener('mouseout', function() {
+                if(this.metadata.iwOpen) return;
+                this.setIcon(markerIcon);
+            });
+        }else{
+            marker.setIcon(markerIconInactive);
+            marker.setClickable(false);
+        }
+
+        marker.metadata = {
+            id: i,
+            iwOpen:false,
+        };
         attachSecretMessage(marker, stations[i]);
     }
 
@@ -341,16 +381,15 @@ function mapFunctions(journey){
             // content: infoWindowContent
 
         });
-
-        // function iwFadeIn() {
-        //     infoWindow.open(map, marker);
-        //     var iw_container = $(".gm-style-iw").parent();
-        //     iw_container.stop().hide();
-        //     iw_container.fadeIn(1000);
-        // }
+        infoWindow.addListener('closeclick', function(){
+            marker.setIcon(markerIcon);
+            marker.metadata.iwOpen = false;
+        })
 
         marker.addListener('click', function () {
-
+            this.setIcon(markerIconHovered);
+            this.metadata.iwOpen = true;
+            
             $.ajax({
                 type: "GET",
                 url: '/api/rndImg',

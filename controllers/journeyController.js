@@ -31,6 +31,9 @@ exports.update = function(req, res){
 
 exports.create = function(req, res){
      let journey = journeyService.createJourney(req.body, new Journey());
+
+console.log(journey)
+
     // save journey and check for errors
     journey.save(function (err) {
         if (err)

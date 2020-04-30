@@ -5,16 +5,16 @@
         <div class="card-text text-black-50">
             <div><strong><%=journey.startDate%> - <%=journey.endDate%></strong></div>
             <p>
-                Some quick example text to build on the card title
-                and make up the bulk of the card's content.
+                <%=journey.teaserText%>
             </p>
-            <a href="/map/<%=journey._id%>" class="btn btn-primary">Karte</a>
-            <% if(isAdmin){ %>
-                <a href="/form/<%=journey._id%>" class="btn btn-secondary float-right">Bearbeiten</a>
-            <% } %>
         </div>
     </div>
-    <div>
-        
+    <div class="card-footer">
+        <div class="">
+            <a href="/map/<%=journey._id%>" class="btn btn-primary">Karte</a>
+            <% if(isAdmin){ %>
+                <a href="/form/<%=journey._id%>" class="btn btn-secondary">Bearbeiten</a>
+            <% } %>
+        </div>
     </div>
 </div>

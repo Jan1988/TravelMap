@@ -1,4 +1,19 @@
-
+<% 
+    if(waypoint.arrivalDate){
+        let month = '' + (waypoint.arrivalDate.getMonth() + 1);
+        let day = '' + waypoint.arrivalDate.getDate();
+        let year = waypoint.arrivalDate.getFullYear();
+        
+        if (month.length < 2) 
+        month = '0' + month;
+        if (day.length < 2) 
+        day = '0' + day;
+        
+        var formattedDate = [year, month, day].join('-');
+    }else{
+        var formattedDate = "2014-01-01";
+    }
+%>
 <div class="row waypointRow">
     <div class="col-4 mb-2">
         <!-- <div class="input-group">
@@ -17,7 +32,7 @@
         </div>
     </div>
     <div class="col-2 mb-2 pl-0">
-        <input type="date" class="form-control" name="arrivalDate" placeholder="Datum" value="<%=waypoint.arrivalDate%>">
+        <input type="date" class="form-control" name="arrivalDate" placeholder="Datum" value="<%=formattedDate%>">
         <div class="invalid-feedback">Datum fehlt</div>
     </div>
     <div class="col-2 mb-2 pl-0">

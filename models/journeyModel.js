@@ -6,15 +6,17 @@ var waypointSchema = mongoose.Schema({
     name: {type: String, required: true},
     lat: {type: Number, required: true},
     lng: {type: Number, required: true},
-    arrivalDate: {type: String},
+    arrivalDate: {type: Date},
     arrivalDay: {type: Number},
-    transport: {type: String, required: true}
+    transport: {type: String, required: true},
+    hasImages: {type: Boolean}
 });
 
 var journeySchema = mongoose.Schema({
     name: {type: String, required: true},
-    startDate: {type: String, required: true},
-    endDate: {type: String, required: true},
+    teaserText: {type: String},
+    startDate: {type: String},
+    endDate: {type: String},
     waypoints: [waypointSchema]
 });
 // Export Contact model
